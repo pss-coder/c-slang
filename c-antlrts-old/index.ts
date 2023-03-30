@@ -72,7 +72,7 @@ function convertSource(expression: cparser.ExpressionContext): es.Program {
 const inputStream = CharStreams.fromString("int main() {int x = 2+3; return 0;}")
 const lexer = new CCalcLexer(inputStream)
 const tokenStream = new CommonTokenStream(lexer)
-const parser = new cparser.CalcParser(tokenStream)
+const parser = new cparser.CCalcParser(tokenStream)
 parser.buildParseTree = true
 const tree = parser.expression()
 const program = convertSource(tree);
