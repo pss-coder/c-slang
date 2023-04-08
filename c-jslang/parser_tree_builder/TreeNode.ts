@@ -13,6 +13,9 @@ export interface TreeNode {
     right?: TreeNode,
 
 
+    //structFields
+    members? : TreeNode[]
+    structName?: string
   
     // Function Definition
     returnType?: TreeNode,
@@ -31,4 +34,6 @@ export interface TreeNode {
 
     // is pointer * present in assignment
     isPointerPresent?: boolean | false
+
+    block?: TreeNode
   }

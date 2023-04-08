@@ -1,102 +1,175 @@
 import { TreeNode } from "../parser_tree_builder/TreeNode";
 
+type Environment = { [name: string]: any };
+
+interface StackFrame {
+  environment: Environment;
+}
+
+
 export class Intepreter {
 
-    // TODO: Implement environment
-    interpreter(node: TreeNode): any {
-        switch(node.tag) {
-            case 'Program':
-                return this.interpreter(node.children!)
-            case 'Statement':
-                return this.interpreter(node.children!)
-            case 'Def':
-                return this.interpreter(node.children!)
-            case 'FunDef':
-                // const returnType = this.interpreter(node.children!.returnType!)
-                // const funcName = this.interpreter(node.children!)
-                //const args = this.interpreter(node.args) <-TODO: IMPLEMENT
-                const program = this.interpreter(node.children!.nextProg!)
-                return program
-                // console.log(program)
-                break;
-            case 'Return':
-                return this.interpreter(node.children!)
-            case 'BinaryExpression':
-                const operator = this.interpreter(node.operator!);
-                const left = this.interpreter(node.left!)
-                const right = this.interpreter(node.right!)
-                const result = this.binaryOp(operator, left,right)
-                // console.log(result)
-                return result;
-                break;
-            case 'BinaryOp':
-                return node.text!
-            case 'Literal':
-                //TODO: check typ of literal before parsing
-                return parseInt(node.text!)
-            case 'returnType':
-                return node.text!
-            case 'FuncName':
-                return node.text!
-            default:
-                console.log("error=")
-                console.log(node);
-                throw new Error(`Unknown AST node type: ${node}`)
-        }
-    }
+  private stack: StackFrame[];
+  environment: Environment = {};
 
-    // interpret(node: TreeNode, environment: any = {}): any {
-    //     console.log(node)
+  constructor() {
+    this.stack = []
+  }
+
+  private getCurrentFrame(): StackFrame {
+    return this.stack[this.stack.length - 1];
+  }
+
+  private lookup(name: string): number | undefined {
+    for (let i = this.stack.length - 1; i >= 0; i--) {
+      const frame = this.stack[i];
+      const value = frame.environment[name];
+      if (value !== undefined) {
+        return value;
+      }
+    }
+    return undefined;
+  }
+
+  // Define a print function that takes a list of values and prints them
+  // in the console
+  print(values: any[]) {
+    console.log(...values);
+    return undefined;
+  }
+  
+
+  define(name: string, value: any): void {
+    // Define name in current frame if present, else in global environment
+    if (this.stack.length > 0) {
+      this.stack[this.stack.length - 1].environment[name] = value;
+    } else {
+      this.environment[name] = value;
+    }
+  }
+
+  interpreter(node: TreeNode): any {
+    switch(node.tag) {
+        case 'Program':
+          if (node.children?.stat)
+              return this.interpreter(node.children?.stat!)
+            return this.interpreter(node.children!)
+        case 'Statement':
+            return this.interpreter(node.children!)
+        case 'Def':
+            return this.interpreter(node.children!)
+        case 'FunDef':
+            const functionName = this.interpreter(node.children!.funcName!)
+            const body = node.children!.nextProg!
+            const args = node.children!.args
+            if (functionName == 'main')
+                return this.interpreter(body)
+        
+            // define function as new frame into environment
+              // including mapping of variable, if not assingment, set undefined first
+            // if it is main => execute it
+              // else store body until if it is function call
+              
+          //  const program = this.interpreter(node.children!.nextProg!)
+          ///            return program
+            break;
+        case 'FunCall':
+            // lookup function name in environment if present, e.g: builtins eg printf(), else show error
+              // pass args into 
+            // evaulate args in func first
+              // then call function in environment
+              const fnName = this.interpreter(node.funcName!)
+              const func = this.lookup(fnName!)
+              // evaulate args
+              const ags = node!.args
+              //TODO: store params
+              if (ags) {
+                const frame: StackFrame = {
+                  environment: {},
+                };
+                // ags.forEach(item => {
+                //   const val = this.interpreter(item)
+                //   const name = parameterNames.shift()!;
+                //   frame.environment[name] = val;  
+                // });
+                if (fnName == 'printf') {
+                  // Replace all occurrences of %d in the first argument with
+                  // the corresponding value from the argument list
+                  const format = ags[0].text!;
+                  const values = ags.slice(1).map(item => this.interpreter(item))
+                  const replaced = format.replace(/%d/g, () => values.shift());
+                  // Call the print function with the replaced string
+                  return this.print([replaced]);
+                }
+              }
+
+            break;
+        case 'Return':
+            return this.interpreter(node.children!)
+        case 'BinaryExpression':
+            const operator = this.interpreter(node.operator!);
+            const left = this.interpreter(node.left!)
+            const right = this.interpreter(node.right!)
+            const result = this.binaryOp(operator, left,right)
+            // console.log(result)
+            return result;
+            break;
+        case 'BinaryOp':
+            return node.text!
+        case 'Literal':
+            return parseInt(node.text!)
+        case 'returnType':
+            return node.text!
+        case 'FuncName':
+            return node.text!
+        default:
+            console.log("error=")
+            console.log(node);
+            throw new Error(`Unknown AST node type: ${node.tag!}`)
+    }
+}
+  
+    // TODO: Implement environment
+    // interpreter(node: TreeNode): any {
     //     switch(node.tag) {
     //         case 'Program':
-    //             return this.interpret(node.children![0], environment)
-    //             break;
-    //         case 'Children':
-    //             for (const child of node.children!) {
-    //                 if (child.tag != 'Terminal')
-    //                     this.interpret(child, environment);
-    //               }
-    //               break;
+    //             return this.interpreter(node.children!)
     //         case 'Statement':
-    //             for (const child of node.children!) {
-    //                     this.interpret(child, environment);
-    //               }
-    //             break;
+    //             return this.interpreter(node.children!)
     //         case 'Def':
-    //             for (const child of node.children!) {
-    //                 this.interpret(child, environment);
-    //               }
-    //             break;
+    //             return this.interpreter(node.children!)
     //         case 'FunDef':
-    //             const children = this.interpret(node.children![0], environment)
-    //             console.log(children)
+    //             // const returnType = this.interpreter(node.children!.returnType!)
+    //             // const funcName = this.interpreter(node.children!)
+    //             //const args = this.interpreter(node.args) <-TODO: IMPLEMENT
+    //             const program = this.interpreter(node.children!.nextProg!)
+    //             return program
+    //             // console.log(program)
     //             break;
-    //         case 'FuncName':
-    //             return node.text
     //         case 'Return':
-    //             const r = this.interpret(node.children![0], environment)
-    //             console.log(r)
-    //             break
+    //             return this.interpreter(node.children!)
     //         case 'BinaryExpression':
-    //             const symbol = node.operator!.text!
-    //             const expr1: number = this.interpret(node.left!, environment )!;
-    //             const expr2: number = this.interpret(node.right!, environment )!;
-    //             const result = this.binaryOp(symbol, expr1, expr2);
-
-    //             console.log(result)
+    //             const operator = this.interpreter(node.operator!);
+    //             const left = this.interpreter(node.left!)
+    //             const right = this.interpreter(node.right!)
+    //             const result = this.binaryOp(operator, left,right)
+    //             // console.log(result)
+    //             return result;
     //             break;
+    //         case 'BinaryOp':
+    //             return node.text!
     //         case 'Literal':
+    //             //TODO: check typ of literal before parsing
     //             return parseInt(node.text!)
-    //             break;
-    //         case 'Terminal':
-    //             //TODO: CHECK the kind of terminal?
-    //             return;
+    //         case 'returnType':
+    //             return node.text!
+    //         case 'FuncName':
+    //             return node.text!
     //         default:
-    //             // return;
     //             console.log("error=")
     //             console.log(node);
-    //             throw new Error(`Unknown AST node type:`);
-    //     } 
+    //             throw new Error(`Unknown AST node type: ${node}`)
+    //     }
     // }
 
     binaryOp(operator: string, left: number, right: number) {

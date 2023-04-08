@@ -15,8 +15,12 @@ stat: assg ';'
 return : 'return' (expr)?;
 
 
-varDef: type ID | type assg;
+varDef: type ID 
+    | type assg 
+    | structInit
+    ;
 
+structInit: 'struct' ID ID ;
 
 assg: ID '=' expr
       | '*'ID '=' expr;
@@ -28,7 +32,7 @@ whileStat : 'while' '(' expr ')' block;
 ifStat  : 'if' '(' expr ')' block 'else' block ;
 
 
-def : varDef ';' | funDef;
+def : varDef ';' | funDef | structDef;
 
 
 funDef : type funcName '(' ')' '{' program '}'
@@ -88,8 +92,8 @@ type  : 'void'
       ;
 
 
-
-
+structMember: type ID ';' ;
+structDef: 'struct' ID '{' (structMember)* '}' ';' ;
 
 
 

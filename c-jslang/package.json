@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "antlr4ts": "antlr4ts -visitor CJs.g4"
+    "antlr4ts": "antlr4ts -visitor ./lang/CJs.g4"
   },
   "dependencies": {
     "@types/estree": "^1.0.0",

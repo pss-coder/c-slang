@@ -1,4 +1,4 @@
-// Generated from CJs.g4 by ANTLR 4.9.0-SNAPSHOT
+// Generated from ./lang/CJs.g4 by ANTLR 4.9.0-SNAPSHOT
 
 
 import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
@@ -7,6 +7,7 @@ import { ProgramContext } from "./CJsParser";
 import { StatContext } from "./CJsParser";
 import { ReturnContext } from "./CJsParser";
 import { VarDefContext } from "./CJsParser";
+import { StructInitContext } from "./CJsParser";
 import { AssgContext } from "./CJsParser";
 import { WhileStatContext } from "./CJsParser";
 import { IfStatContext } from "./CJsParser";
@@ -19,6 +20,8 @@ import { UnaryOpContext } from "./CJsParser";
 import { BinaryOpContext } from "./CJsParser";
 import { BlockContext } from "./CJsParser";
 import { TypeContext } from "./CJsParser";
+import { StructMemberContext } from "./CJsParser";
+import { StructDefContext } from "./CJsParser";
 
 
 /**
@@ -56,6 +59,13 @@ export interface CJsVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitVarDef?: (ctx: VarDefContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `CJsParser.structInit`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitStructInit?: (ctx: StructInitContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `CJsParser.assg`.
@@ -140,5 +150,19 @@ export interface CJsVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitType?: (ctx: TypeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `CJsParser.structMember`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitStructMember?: (ctx: StructMemberContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `CJsParser.structDef`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitStructDef?: (ctx: StructDefContext) => Result;
 }
 

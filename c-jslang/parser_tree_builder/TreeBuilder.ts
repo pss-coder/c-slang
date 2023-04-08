@@ -13,6 +13,7 @@ import {TreeNode} from '../parser_tree_builder/TreeNode'
 // Current implementations
 //FIXME: FIX THE FUNCTIONS AND IMPLEMENT THE REMAINING FUNCTIONS
 export class TreeBuilder implements CJsVisitor<TreeNode> {
+  
   private tree: TreeNode = { tag: "Program", children: {} };
   private currentNode: TreeNode = this.tree;
 
@@ -66,21 +67,27 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
   }
 
   visitVarDef(ctx: CJsParser.VarDefContext): TreeNode {
-    // const id = ctx.ID()?.text
+    if (ctx.structInit()) {
+      return {tag: 'VarDef', children: this.visitStructInit(ctx.structInit()!)}
+    }
+
+    if (ctx.assg()) {
+      return this.visitAssg(ctx.assg()!)
+    }
+
     const type = this.visitType(ctx.type()!);
-    const assignment = this.visitAssg(ctx.assg()!)
 
     return {
       tag: 'VarDef',
       text: ctx.ID()?.text,
-      children: {type, assignment}
+      children: {type}
     }
   }
 
 
   visitAssg(ctx: CJsParser.AssgContext): TreeNode {
     //TODO
-    const expr = this.visitExpr(ctx.expr()!)
+    const expr = this.visitExpr(ctx.expr())
     return {
       tag:'Assignment',
       text: ctx.ID().text,
@@ -98,6 +105,7 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
 
     if(ctx.funDef()) { def.children = this.visitFunDef(ctx.funDef()!)}
     if (ctx.varDef()) { def.children = this.visitVarDef(ctx.varDef()!)} 
+    if (ctx.structDef()) {def.children = this.visitStructDef(ctx.structDef()!)}
     // else { def.children = this.visitTerminal(ctx.COLON()!)}
 
     return def;
@@ -119,7 +127,7 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
 
     return {
       tag: 'FunDef',
-      children: {returnType, funcName, args, nextProg}
+      children: {funcName, returnType, args, nextProg}
     }
   }
   visitFuncName(ctx: CJsParser.FuncNameContext): TreeNode {
@@ -186,9 +194,9 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
 
   visitFunCall(ctx: CJsParser.FunCallContext): TreeNode {
     return {
-      tag: 'funCall',
-      text: ctx.text,
-      children: this.visitChildren(ctx)
+      tag: 'FunCall',
+      funcName: this.visitFuncName(ctx.funcName()),
+      args: ctx.expr().map(item => this.visitExpr(item))
     }
   }
 
@@ -206,7 +214,38 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
       }
   }
 
-  visitBlock?: ((ctx: CJsParser.BlockContext) => TreeNode) | undefined
+  visitStructMember(ctx: CJsParser.StructMemberContext): TreeNode {
+    return {
+      tag: 'structMember',
+      text: ctx.ID().text,
+      type: this.visitType(ctx.type())
+    }
+  }
+
+  visitStructDef (ctx: CJsParser.StructDefContext) : TreeNode {
+    const members = ctx.structMember().map(item => this.visitStructMember(item))
+
+    return {
+      tag: 'StructDef',
+      text: ctx.ID().text,
+      members,
+    }
+  }
+
+  visitStructInit (ctx: CJsParser.StructInitContext): TreeNode {
+    return {
+      tag: 'StructInit',
+      structName: ctx.ID(0).text,
+      text: ctx.ID(1).text,
+    }
+  }
+
+  visitBlock (ctx: CJsParser.BlockContext): TreeNode {
+    return {
+      tag: 'Block',
+      block: this.visit(ctx.program()!)
+    }
+  }
 
   visitType(ctx: CJsParser.TypeContext): TreeNode {
     return {tag: 'Type', text:ctx.text}

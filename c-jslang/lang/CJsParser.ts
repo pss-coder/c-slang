@@ -1,4 +1,4 @@
-// Generated from CJs.g4 by ANTLR 4.9.0-SNAPSHOT
+// Generated from ./lang/CJs.g4 by ANTLR 4.9.0-SNAPSHOT
 
 
 import { ATN } from "antlr4ts/atn/ATN";
@@ -46,63 +46,68 @@ export class CJsParser extends Parser {
 	public static readonly T__15 = 16;
 	public static readonly T__16 = 17;
 	public static readonly T__17 = 18;
-	public static readonly CHAR = 19;
-	public static readonly STRING = 20;
-	public static readonly WS = 21;
-	public static readonly ADD = 22;
-	public static readonly SUB = 23;
-	public static readonly MUL = 24;
-	public static readonly DIV = 25;
-	public static readonly MOD = 26;
-	public static readonly COMMA = 27;
-	public static readonly PRINT = 28;
-	public static readonly COLON = 29;
-	public static readonly EQ = 30;
-	public static readonly AND = 31;
-	public static readonly OR = 32;
-	public static readonly NOT = 33;
-	public static readonly LPAREN = 34;
-	public static readonly RPAREN = 35;
-	public static readonly LCURLY = 36;
-	public static readonly RCURLY = 37;
-	public static readonly INT = 38;
-	public static readonly ID = 39;
+	public static readonly T__18 = 19;
+	public static readonly CHAR = 20;
+	public static readonly STRING = 21;
+	public static readonly WS = 22;
+	public static readonly ADD = 23;
+	public static readonly SUB = 24;
+	public static readonly MUL = 25;
+	public static readonly DIV = 26;
+	public static readonly MOD = 27;
+	public static readonly COMMA = 28;
+	public static readonly PRINT = 29;
+	public static readonly COLON = 30;
+	public static readonly EQ = 31;
+	public static readonly AND = 32;
+	public static readonly OR = 33;
+	public static readonly NOT = 34;
+	public static readonly LPAREN = 35;
+	public static readonly RPAREN = 36;
+	public static readonly LCURLY = 37;
+	public static readonly RCURLY = 38;
+	public static readonly INT = 39;
+	public static readonly ID = 40;
 	public static readonly RULE_program = 0;
 	public static readonly RULE_stat = 1;
 	public static readonly RULE_return = 2;
 	public static readonly RULE_varDef = 3;
-	public static readonly RULE_assg = 4;
-	public static readonly RULE_whileStat = 5;
-	public static readonly RULE_ifStat = 6;
-	public static readonly RULE_def = 7;
-	public static readonly RULE_funDef = 8;
-	public static readonly RULE_funcName = 9;
-	public static readonly RULE_expr = 10;
-	public static readonly RULE_funCall = 11;
-	public static readonly RULE_unaryOp = 12;
-	public static readonly RULE_binaryOp = 13;
-	public static readonly RULE_block = 14;
-	public static readonly RULE_type = 15;
+	public static readonly RULE_structInit = 4;
+	public static readonly RULE_assg = 5;
+	public static readonly RULE_whileStat = 6;
+	public static readonly RULE_ifStat = 7;
+	public static readonly RULE_def = 8;
+	public static readonly RULE_funDef = 9;
+	public static readonly RULE_funcName = 10;
+	public static readonly RULE_expr = 11;
+	public static readonly RULE_funCall = 12;
+	public static readonly RULE_unaryOp = 13;
+	public static readonly RULE_binaryOp = 14;
+	public static readonly RULE_block = 15;
+	public static readonly RULE_type = 16;
+	public static readonly RULE_structMember = 17;
+	public static readonly RULE_structDef = 18;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"program", "stat", "return", "varDef", "assg", "whileStat", "ifStat", 
-		"def", "funDef", "funcName", "expr", "funCall", "unaryOp", "binaryOp", 
-		"block", "type",
+		"program", "stat", "return", "varDef", "structInit", "assg", "whileStat", 
+		"ifStat", "def", "funDef", "funcName", "expr", "funCall", "unaryOp", "binaryOp", 
+		"block", "type", "structMember", "structDef",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
-		undefined, "'return'", "'while'", "'if'", "'else'", "'++'", "'--'", "'&'", 
-		"'=='", "'<'", "'>'", "'>='", "'<='", "'void'", "'int'", "'char'", "'void*'", 
-		"'int*'", "'char*'", undefined, undefined, undefined, "'+'", "'-'", "'*'", 
-		"'/'", "'%'", "','", "'print'", "';'", "'='", "'&&'", "'||'", "'!'", "'('", 
-		"')'", "'{'", "'}'",
+		undefined, "'return'", "'struct'", "'while'", "'if'", "'else'", "'++'", 
+		"'--'", "'&'", "'=='", "'<'", "'>'", "'>='", "'<='", "'void'", "'int'", 
+		"'char'", "'void*'", "'int*'", "'char*'", undefined, undefined, undefined, 
+		"'+'", "'-'", "'*'", "'/'", "'%'", "','", "'print'", "';'", "'='", "'&&'", 
+		"'||'", "'!'", "'('", "')'", "'{'", "'}'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
 		undefined, undefined, undefined, undefined, undefined, undefined, undefined, 
 		undefined, undefined, undefined, undefined, undefined, undefined, undefined, 
-		undefined, undefined, undefined, undefined, undefined, "CHAR", "STRING", 
-		"WS", "ADD", "SUB", "MUL", "DIV", "MOD", "COMMA", "PRINT", "COLON", "EQ", 
-		"AND", "OR", "NOT", "LPAREN", "RPAREN", "LCURLY", "RCURLY", "INT", "ID",
+		undefined, undefined, undefined, undefined, undefined, undefined, "CHAR", 
+		"STRING", "WS", "ADD", "SUB", "MUL", "DIV", "MOD", "COMMA", "PRINT", "COLON", 
+		"EQ", "AND", "OR", "NOT", "LPAREN", "RPAREN", "LCURLY", "RCURLY", "INT", 
+		"ID",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(CJsParser._LITERAL_NAMES, CJsParser._SYMBOLIC_NAMES, []);
 
@@ -135,13 +140,13 @@ export class CJsParser extends Parser {
 		let _localctx: ProgramContext = new ProgramContext(this._ctx, this.state);
 		this.enterRule(_localctx, 0, CJsParser.RULE_program);
 		try {
-			this.state = 36;
+			this.state = 42;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 0, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 32;
+				this.state = 38;
 				this.stat();
 				}
 				break;
@@ -149,9 +154,9 @@ export class CJsParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 33;
+				this.state = 39;
 				this.stat();
-				this.state = 34;
+				this.state = 40;
 				this.program();
 				}
 				break;
@@ -176,15 +181,15 @@ export class CJsParser extends Parser {
 		let _localctx: StatContext = new StatContext(this._ctx, this.state);
 		this.enterRule(_localctx, 2, CJsParser.RULE_stat);
 		try {
-			this.state = 51;
+			this.state = 57;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 1, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 38;
+				this.state = 44;
 				this.assg();
-				this.state = 39;
+				this.state = 45;
 				this.match(CJsParser.COLON);
 				}
 				break;
@@ -192,9 +197,9 @@ export class CJsParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 41;
+				this.state = 47;
 				this.expr(0);
-				this.state = 42;
+				this.state = 48;
 				this.match(CJsParser.COLON);
 				}
 				break;
@@ -202,7 +207,7 @@ export class CJsParser extends Parser {
 			case 3:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 44;
+				this.state = 50;
 				this.ifStat();
 				}
 				break;
@@ -210,7 +215,7 @@ export class CJsParser extends Parser {
 			case 4:
 				this.enterOuterAlt(_localctx, 4);
 				{
-				this.state = 45;
+				this.state = 51;
 				this.def();
 				}
 				break;
@@ -218,7 +223,7 @@ export class CJsParser extends Parser {
 			case 5:
 				this.enterOuterAlt(_localctx, 5);
 				{
-				this.state = 46;
+				this.state = 52;
 				this.whileStat();
 				}
 				break;
@@ -226,7 +231,7 @@ export class CJsParser extends Parser {
 			case 6:
 				this.enterOuterAlt(_localctx, 6);
 				{
-				this.state = 47;
+				this.state = 53;
 				this.block();
 				}
 				break;
@@ -234,9 +239,9 @@ export class CJsParser extends Parser {
 			case 7:
 				this.enterOuterAlt(_localctx, 7);
 				{
-				this.state = 48;
+				this.state = 54;
 				this.return();
-				this.state = 49;
+				this.state = 55;
 				this.match(CJsParser.COLON);
 				}
 				break;
@@ -264,14 +269,14 @@ export class CJsParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 53;
+			this.state = 59;
 			this.match(CJsParser.T__0);
-			this.state = 55;
+			this.state = 61;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << CJsParser.T__4) | (1 << CJsParser.T__5) | (1 << CJsParser.T__6) | (1 << CJsParser.CHAR) | (1 << CJsParser.ADD) | (1 << CJsParser.SUB) | (1 << CJsParser.MUL))) !== 0) || ((((_la - 33)) & ~0x1F) === 0 && ((1 << (_la - 33)) & ((1 << (CJsParser.NOT - 33)) | (1 << (CJsParser.LPAREN - 33)) | (1 << (CJsParser.INT - 33)) | (1 << (CJsParser.ID - 33)))) !== 0)) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << CJsParser.T__5) | (1 << CJsParser.T__6) | (1 << CJsParser.T__7) | (1 << CJsParser.CHAR) | (1 << CJsParser.ADD) | (1 << CJsParser.SUB) | (1 << CJsParser.MUL))) !== 0) || ((((_la - 34)) & ~0x1F) === 0 && ((1 << (_la - 34)) & ((1 << (CJsParser.NOT - 34)) | (1 << (CJsParser.LPAREN - 34)) | (1 << (CJsParser.INT - 34)) | (1 << (CJsParser.ID - 34)))) !== 0)) {
 				{
-				this.state = 54;
+				this.state = 60;
 				this.expr(0);
 				}
 			}
@@ -297,15 +302,15 @@ export class CJsParser extends Parser {
 		let _localctx: VarDefContext = new VarDefContext(this._ctx, this.state);
 		this.enterRule(_localctx, 6, CJsParser.RULE_varDef);
 		try {
-			this.state = 63;
+			this.state = 70;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 3, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 57;
+				this.state = 63;
 				this.type();
-				this.state = 58;
+				this.state = 64;
 				this.match(CJsParser.ID);
 				}
 				break;
@@ -313,10 +318,18 @@ export class CJsParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 60;
+				this.state = 66;
 				this.type();
-				this.state = 61;
+				this.state = 67;
 				this.assg();
+				}
+				break;
+
+			case 3:
+				this.enterOuterAlt(_localctx, 3);
+				{
+				this.state = 69;
+				this.structInit();
 				}
 				break;
 			}
@@ -336,34 +349,63 @@ export class CJsParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
+	public structInit(): StructInitContext {
+		let _localctx: StructInitContext = new StructInitContext(this._ctx, this.state);
+		this.enterRule(_localctx, 8, CJsParser.RULE_structInit);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 72;
+			this.match(CJsParser.T__1);
+			this.state = 73;
+			this.match(CJsParser.ID);
+			this.state = 74;
+			this.match(CJsParser.ID);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
 	public assg(): AssgContext {
 		let _localctx: AssgContext = new AssgContext(this._ctx, this.state);
-		this.enterRule(_localctx, 8, CJsParser.RULE_assg);
+		this.enterRule(_localctx, 10, CJsParser.RULE_assg);
 		try {
-			this.state = 72;
+			this.state = 83;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case CJsParser.ID:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 65;
+				this.state = 76;
 				this.match(CJsParser.ID);
-				this.state = 66;
+				this.state = 77;
 				this.match(CJsParser.EQ);
-				this.state = 67;
+				this.state = 78;
 				this.expr(0);
 				}
 				break;
 			case CJsParser.MUL:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 68;
+				this.state = 79;
 				this.match(CJsParser.MUL);
-				this.state = 69;
+				this.state = 80;
 				this.match(CJsParser.ID);
-				this.state = 70;
+				this.state = 81;
 				this.match(CJsParser.EQ);
-				this.state = 71;
+				this.state = 82;
 				this.expr(0);
 				}
 				break;
@@ -388,19 +430,19 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public whileStat(): WhileStatContext {
 		let _localctx: WhileStatContext = new WhileStatContext(this._ctx, this.state);
-		this.enterRule(_localctx, 10, CJsParser.RULE_whileStat);
+		this.enterRule(_localctx, 12, CJsParser.RULE_whileStat);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 74;
-			this.match(CJsParser.T__1);
-			this.state = 75;
+			this.state = 85;
+			this.match(CJsParser.T__2);
+			this.state = 86;
 			this.match(CJsParser.LPAREN);
-			this.state = 76;
+			this.state = 87;
 			this.expr(0);
-			this.state = 77;
+			this.state = 88;
 			this.match(CJsParser.RPAREN);
-			this.state = 78;
+			this.state = 89;
 			this.block();
 			}
 		}
@@ -421,23 +463,23 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public ifStat(): IfStatContext {
 		let _localctx: IfStatContext = new IfStatContext(this._ctx, this.state);
-		this.enterRule(_localctx, 12, CJsParser.RULE_ifStat);
+		this.enterRule(_localctx, 14, CJsParser.RULE_ifStat);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 80;
-			this.match(CJsParser.T__2);
-			this.state = 81;
-			this.match(CJsParser.LPAREN);
-			this.state = 82;
-			this.expr(0);
-			this.state = 83;
-			this.match(CJsParser.RPAREN);
-			this.state = 84;
-			this.block();
-			this.state = 85;
+			this.state = 91;
 			this.match(CJsParser.T__3);
-			this.state = 86;
+			this.state = 92;
+			this.match(CJsParser.LPAREN);
+			this.state = 93;
+			this.expr(0);
+			this.state = 94;
+			this.match(CJsParser.RPAREN);
+			this.state = 95;
+			this.block();
+			this.state = 96;
+			this.match(CJsParser.T__4);
+			this.state = 97;
 			this.block();
 			}
 		}
@@ -458,17 +500,17 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public def(): DefContext {
 		let _localctx: DefContext = new DefContext(this._ctx, this.state);
-		this.enterRule(_localctx, 14, CJsParser.RULE_def);
+		this.enterRule(_localctx, 16, CJsParser.RULE_def);
 		try {
-			this.state = 92;
+			this.state = 104;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 5, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 88;
+				this.state = 99;
 				this.varDef();
-				this.state = 89;
+				this.state = 100;
 				this.match(CJsParser.COLON);
 				}
 				break;
@@ -476,8 +518,16 @@ export class CJsParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 91;
+				this.state = 102;
 				this.funDef();
+				}
+				break;
+
+			case 3:
+				this.enterOuterAlt(_localctx, 3);
+				{
+				this.state = 103;
+				this.structDef();
 				}
 				break;
 			}
@@ -499,28 +549,28 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public funDef(): FunDefContext {
 		let _localctx: FunDefContext = new FunDefContext(this._ctx, this.state);
-		this.enterRule(_localctx, 16, CJsParser.RULE_funDef);
+		this.enterRule(_localctx, 18, CJsParser.RULE_funDef);
 		let _la: number;
 		try {
-			this.state = 118;
+			this.state = 130;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 7, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 94;
+				this.state = 106;
 				this.type();
-				this.state = 95;
+				this.state = 107;
 				this.funcName();
-				this.state = 96;
+				this.state = 108;
 				this.match(CJsParser.LPAREN);
-				this.state = 97;
+				this.state = 109;
 				this.match(CJsParser.RPAREN);
-				this.state = 98;
+				this.state = 110;
 				this.match(CJsParser.LCURLY);
-				this.state = 99;
+				this.state = 111;
 				this.program();
-				this.state = 100;
+				this.state = 112;
 				this.match(CJsParser.RCURLY);
 				}
 				break;
@@ -528,39 +578,39 @@ export class CJsParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 102;
+				this.state = 114;
 				this.type();
-				this.state = 103;
+				this.state = 115;
 				this.funcName();
-				this.state = 104;
+				this.state = 116;
 				this.match(CJsParser.LPAREN);
 				{
-				this.state = 105;
+				this.state = 117;
 				this.varDef();
 				}
-				this.state = 110;
+				this.state = 122;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				while (_la === CJsParser.COMMA) {
 					{
 					{
-					this.state = 106;
+					this.state = 118;
 					this.match(CJsParser.COMMA);
-					this.state = 107;
+					this.state = 119;
 					this.varDef();
 					}
 					}
-					this.state = 112;
+					this.state = 124;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				}
-				this.state = 113;
+				this.state = 125;
 				this.match(CJsParser.RPAREN);
-				this.state = 114;
+				this.state = 126;
 				this.match(CJsParser.LCURLY);
-				this.state = 115;
+				this.state = 127;
 				this.program();
-				this.state = 116;
+				this.state = 128;
 				this.match(CJsParser.RCURLY);
 				}
 				break;
@@ -583,11 +633,11 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public funcName(): FuncNameContext {
 		let _localctx: FuncNameContext = new FuncNameContext(this._ctx, this.state);
-		this.enterRule(_localctx, 18, CJsParser.RULE_funcName);
+		this.enterRule(_localctx, 20, CJsParser.RULE_funcName);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 120;
+			this.state = 132;
 			this.match(CJsParser.ID);
 			}
 		}
@@ -618,65 +668,65 @@ export class CJsParser extends Parser {
 		let _parentState: number = this.state;
 		let _localctx: ExprContext = new ExprContext(this._ctx, _parentState);
 		let _prevctx: ExprContext = _localctx;
-		let _startState: number = 20;
-		this.enterRecursionRule(_localctx, 20, CJsParser.RULE_expr, _p);
+		let _startState: number = 22;
+		this.enterRecursionRule(_localctx, 22, CJsParser.RULE_expr, _p);
 		try {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 134;
+			this.state = 146;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 8, this._ctx) ) {
 			case 1:
 				{
-				this.state = 123;
+				this.state = 135;
 				this.match(CJsParser.ID);
 				}
 				break;
 
 			case 2:
 				{
-				this.state = 124;
+				this.state = 136;
 				this.match(CJsParser.INT);
 				}
 				break;
 
 			case 3:
 				{
-				this.state = 125;
+				this.state = 137;
 				this.match(CJsParser.CHAR);
 				}
 				break;
 
 			case 4:
 				{
-				this.state = 126;
+				this.state = 138;
 				this.funCall();
 				}
 				break;
 
 			case 5:
 				{
-				this.state = 127;
+				this.state = 139;
 				this.unaryOp();
-				this.state = 128;
+				this.state = 140;
 				this.expr(3);
 				}
 				break;
 
 			case 6:
 				{
-				this.state = 130;
+				this.state = 142;
 				this.match(CJsParser.LPAREN);
-				this.state = 131;
+				this.state = 143;
 				this.expr(0);
-				this.state = 132;
+				this.state = 144;
 				this.match(CJsParser.RPAREN);
 				}
 				break;
 			}
 			this._ctx._stop = this._input.tryLT(-1);
-			this.state = 142;
+			this.state = 154;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 9, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
@@ -689,18 +739,18 @@ export class CJsParser extends Parser {
 					{
 					_localctx = new ExprContext(_parentctx, _parentState);
 					this.pushNewRecursionContext(_localctx, _startState, CJsParser.RULE_expr);
-					this.state = 136;
+					this.state = 148;
 					if (!(this.precpred(this._ctx, 2))) {
 						throw this.createFailedPredicateException("this.precpred(this._ctx, 2)");
 					}
-					this.state = 137;
+					this.state = 149;
 					this.binaryOp();
-					this.state = 138;
+					this.state = 150;
 					this.expr(3);
 					}
 					}
 				}
-				this.state = 144;
+				this.state = 156;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 9, this._ctx);
 			}
@@ -723,38 +773,38 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public funCall(): FunCallContext {
 		let _localctx: FunCallContext = new FunCallContext(this._ctx, this.state);
-		this.enterRule(_localctx, 22, CJsParser.RULE_funCall);
+		this.enterRule(_localctx, 24, CJsParser.RULE_funCall);
 		let _la: number;
 		try {
-			this.state = 161;
+			this.state = 173;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 11, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 145;
+				this.state = 157;
 				this.funcName();
-				this.state = 146;
+				this.state = 158;
 				this.match(CJsParser.LPAREN);
-				this.state = 147;
+				this.state = 159;
 				this.expr(0);
-				this.state = 152;
+				this.state = 164;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				while (_la === CJsParser.COMMA) {
 					{
 					{
-					this.state = 148;
+					this.state = 160;
 					this.match(CJsParser.COMMA);
-					this.state = 149;
+					this.state = 161;
 					this.expr(0);
 					}
 					}
-					this.state = 154;
+					this.state = 166;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				}
-				this.state = 155;
+				this.state = 167;
 				this.match(CJsParser.RPAREN);
 				}
 				break;
@@ -762,11 +812,11 @@ export class CJsParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 157;
+				this.state = 169;
 				this.funcName();
-				this.state = 158;
+				this.state = 170;
 				this.match(CJsParser.LPAREN);
-				this.state = 159;
+				this.state = 171;
 				this.match(CJsParser.RPAREN);
 				}
 				break;
@@ -789,14 +839,14 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public unaryOp(): UnaryOpContext {
 		let _localctx: UnaryOpContext = new UnaryOpContext(this._ctx, this.state);
-		this.enterRule(_localctx, 24, CJsParser.RULE_unaryOp);
+		this.enterRule(_localctx, 26, CJsParser.RULE_unaryOp);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 163;
+			this.state = 175;
 			_la = this._input.LA(1);
-			if (!(((((_la - 5)) & ~0x1F) === 0 && ((1 << (_la - 5)) & ((1 << (CJsParser.T__4 - 5)) | (1 << (CJsParser.T__5 - 5)) | (1 << (CJsParser.T__6 - 5)) | (1 << (CJsParser.ADD - 5)) | (1 << (CJsParser.SUB - 5)) | (1 << (CJsParser.MUL - 5)) | (1 << (CJsParser.NOT - 5)))) !== 0))) {
+			if (!(((((_la - 6)) & ~0x1F) === 0 && ((1 << (_la - 6)) & ((1 << (CJsParser.T__5 - 6)) | (1 << (CJsParser.T__6 - 6)) | (1 << (CJsParser.T__7 - 6)) | (1 << (CJsParser.ADD - 6)) | (1 << (CJsParser.SUB - 6)) | (1 << (CJsParser.MUL - 6)) | (1 << (CJsParser.NOT - 6)))) !== 0))) {
 			this._errHandler.recoverInline(this);
 			} else {
 				if (this._input.LA(1) === Token.EOF) {
@@ -825,14 +875,14 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public binaryOp(): BinaryOpContext {
 		let _localctx: BinaryOpContext = new BinaryOpContext(this._ctx, this.state);
-		this.enterRule(_localctx, 26, CJsParser.RULE_binaryOp);
+		this.enterRule(_localctx, 28, CJsParser.RULE_binaryOp);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 165;
+			this.state = 177;
 			_la = this._input.LA(1);
-			if (!(((((_la - 8)) & ~0x1F) === 0 && ((1 << (_la - 8)) & ((1 << (CJsParser.T__7 - 8)) | (1 << (CJsParser.T__8 - 8)) | (1 << (CJsParser.T__9 - 8)) | (1 << (CJsParser.T__10 - 8)) | (1 << (CJsParser.T__11 - 8)) | (1 << (CJsParser.ADD - 8)) | (1 << (CJsParser.SUB - 8)) | (1 << (CJsParser.MUL - 8)) | (1 << (CJsParser.DIV - 8)) | (1 << (CJsParser.MOD - 8)) | (1 << (CJsParser.AND - 8)) | (1 << (CJsParser.OR - 8)))) !== 0))) {
+			if (!(((((_la - 9)) & ~0x1F) === 0 && ((1 << (_la - 9)) & ((1 << (CJsParser.T__8 - 9)) | (1 << (CJsParser.T__9 - 9)) | (1 << (CJsParser.T__10 - 9)) | (1 << (CJsParser.T__11 - 9)) | (1 << (CJsParser.T__12 - 9)) | (1 << (CJsParser.ADD - 9)) | (1 << (CJsParser.SUB - 9)) | (1 << (CJsParser.MUL - 9)) | (1 << (CJsParser.DIV - 9)) | (1 << (CJsParser.MOD - 9)) | (1 << (CJsParser.AND - 9)) | (1 << (CJsParser.OR - 9)))) !== 0))) {
 			this._errHandler.recoverInline(this);
 			} else {
 				if (this._input.LA(1) === Token.EOF) {
@@ -861,15 +911,15 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public block(): BlockContext {
 		let _localctx: BlockContext = new BlockContext(this._ctx, this.state);
-		this.enterRule(_localctx, 28, CJsParser.RULE_block);
+		this.enterRule(_localctx, 30, CJsParser.RULE_block);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 167;
+			this.state = 179;
 			this.match(CJsParser.LCURLY);
-			this.state = 168;
+			this.state = 180;
 			this.program();
-			this.state = 169;
+			this.state = 181;
 			this.match(CJsParser.RCURLY);
 			}
 		}
@@ -890,14 +940,14 @@ export class CJsParser extends Parser {
 	// @RuleVersion(0)
 	public type(): TypeContext {
 		let _localctx: TypeContext = new TypeContext(this._ctx, this.state);
-		this.enterRule(_localctx, 30, CJsParser.RULE_type);
+		this.enterRule(_localctx, 32, CJsParser.RULE_type);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 171;
+			this.state = 183;
 			_la = this._input.LA(1);
-			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << CJsParser.T__12) | (1 << CJsParser.T__13) | (1 << CJsParser.T__14) | (1 << CJsParser.T__15) | (1 << CJsParser.T__16) | (1 << CJsParser.T__17))) !== 0))) {
+			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << CJsParser.T__13) | (1 << CJsParser.T__14) | (1 << CJsParser.T__15) | (1 << CJsParser.T__16) | (1 << CJsParser.T__17) | (1 << CJsParser.T__18))) !== 0))) {
 			this._errHandler.recoverInline(this);
 			} else {
 				if (this._input.LA(1) === Token.EOF) {
@@ -923,10 +973,87 @@ export class CJsParser extends Parser {
 		}
 		return _localctx;
 	}
+	// @RuleVersion(0)
+	public structMember(): StructMemberContext {
+		let _localctx: StructMemberContext = new StructMemberContext(this._ctx, this.state);
+		this.enterRule(_localctx, 34, CJsParser.RULE_structMember);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 185;
+			this.type();
+			this.state = 186;
+			this.match(CJsParser.ID);
+			this.state = 187;
+			this.match(CJsParser.COLON);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public structDef(): StructDefContext {
+		let _localctx: StructDefContext = new StructDefContext(this._ctx, this.state);
+		this.enterRule(_localctx, 36, CJsParser.RULE_structDef);
+		let _la: number;
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 189;
+			this.match(CJsParser.T__1);
+			this.state = 190;
+			this.match(CJsParser.ID);
+			this.state = 191;
+			this.match(CJsParser.LCURLY);
+			this.state = 195;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << CJsParser.T__13) | (1 << CJsParser.T__14) | (1 << CJsParser.T__15) | (1 << CJsParser.T__16) | (1 << CJsParser.T__17) | (1 << CJsParser.T__18))) !== 0)) {
+				{
+				{
+				this.state = 192;
+				this.structMember();
+				}
+				}
+				this.state = 197;
+				this._errHandler.sync(this);
+				_la = this._input.LA(1);
+			}
+			this.state = 198;
+			this.match(CJsParser.RCURLY);
+			this.state = 199;
+			this.match(CJsParser.COLON);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
 
 	public sempred(_localctx: RuleContext, ruleIndex: number, predIndex: number): boolean {
 		switch (ruleIndex) {
-		case 10:
+		case 11:
 			return this.expr_sempred(_localctx as ExprContext, predIndex);
 		}
 		return true;
@@ -940,77 +1067,89 @@ export class CJsParser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03)\xB0\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03*\xCC\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
-		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x03\x02\x03\x02\x03" +
-		"\x02\x03\x02\x05\x02\'\n\x02\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03" +
-		"\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x05\x036" +
-		"\n\x03\x03\x04\x03\x04\x05\x04:\n\x04\x03\x05\x03\x05\x03\x05\x03\x05" +
-		"\x03\x05\x03\x05\x05\x05B\n\x05\x03\x06\x03\x06\x03\x06\x03\x06\x03\x06" +
-		"\x03\x06\x03\x06\x05\x06K\n\x06\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07" +
-		"\x03\x07\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\t\x03\t\x03" +
-		"\t\x03\t\x05\t_\n\t\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03" +
-		"\n\x03\n\x03\n\x03\n\x03\n\x03\n\x07\no\n\n\f\n\x0E\nr\v\n\x03\n\x03\n" +
-		"\x03\n\x03\n\x03\n\x05\ny\n\n\x03\v\x03\v\x03\f\x03\f\x03\f\x03\f\x03" +
-		"\f\x03\f\x03\f\x03\f\x03\f\x03\f\x03\f\x03\f\x05\f\x89\n\f\x03\f\x03\f" +
-		"\x03\f\x03\f\x07\f\x8F\n\f\f\f\x0E\f\x92\v\f\x03\r\x03\r\x03\r\x03\r\x03" +
-		"\r\x07\r\x99\n\r\f\r\x0E\r\x9C\v\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03\r" +
-		"\x05\r\xA4\n\r\x03\x0E\x03\x0E\x03\x0F\x03\x0F\x03\x10\x03\x10\x03\x10" +
-		"\x03\x10\x03\x11\x03\x11\x03\x11\x02\x02\x03\x16\x12\x02\x02\x04\x02\x06" +
-		"\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x16\x02\x18\x02" +
-		"\x1A\x02\x1C\x02\x1E\x02 \x02\x02\x05\x05\x02\x07\t\x18\x1A##\x05\x02" +
-		"\n\x0E\x18\x1C!\"\x03\x02\x0F\x14\x02\xB4\x02&\x03\x02\x02\x02\x045\x03" +
-		"\x02\x02\x02\x067\x03\x02\x02\x02\bA\x03\x02\x02\x02\nJ\x03\x02\x02\x02" +
-		"\fL\x03\x02\x02\x02\x0ER\x03\x02\x02\x02\x10^\x03\x02\x02\x02\x12x\x03" +
-		"\x02\x02\x02\x14z\x03\x02\x02\x02\x16\x88\x03\x02\x02\x02\x18\xA3\x03" +
-		"\x02\x02\x02\x1A\xA5\x03\x02\x02\x02\x1C\xA7\x03\x02\x02\x02\x1E\xA9\x03" +
-		"\x02\x02\x02 \xAD\x03\x02\x02\x02\"\'\x05\x04\x03\x02#$\x05\x04\x03\x02" +
-		"$%\x05\x02\x02\x02%\'\x03\x02\x02\x02&\"\x03\x02\x02\x02&#\x03\x02\x02" +
-		"\x02\'\x03\x03\x02\x02\x02()\x05\n\x06\x02)*\x07\x1F\x02\x02*6\x03\x02" +
-		"\x02\x02+,\x05\x16\f\x02,-\x07\x1F\x02\x02-6\x03\x02\x02\x02.6\x05\x0E" +
-		"\b\x02/6\x05\x10\t\x0206\x05\f\x07\x0216\x05\x1E\x10\x0223\x05\x06\x04" +
-		"\x0234\x07\x1F\x02\x0246\x03\x02\x02\x025(\x03\x02\x02\x025+\x03\x02\x02" +
-		"\x025.\x03\x02\x02\x025/\x03\x02\x02\x0250\x03\x02\x02\x0251\x03\x02\x02" +
-		"\x0252\x03\x02\x02\x026\x05\x03\x02\x02\x0279\x07\x03\x02\x028:\x05\x16" +
-		"\f\x0298\x03\x02\x02\x029:\x03\x02\x02\x02:\x07\x03\x02\x02\x02;<\x05" +
-		" \x11\x02<=\x07)\x02\x02=B\x03\x02\x02\x02>?\x05 \x11\x02?@\x05\n\x06" +
-		"\x02@B\x03\x02\x02\x02A;\x03\x02\x02\x02A>\x03\x02\x02\x02B\t\x03\x02" +
-		"\x02\x02CD\x07)\x02\x02DE\x07 \x02\x02EK\x05\x16\f\x02FG\x07\x1A\x02\x02" +
-		"GH\x07)\x02\x02HI\x07 \x02\x02IK\x05\x16\f\x02JC\x03\x02\x02\x02JF\x03" +
-		"\x02\x02\x02K\v\x03\x02\x02\x02LM\x07\x04\x02\x02MN\x07$\x02\x02NO\x05" +
-		"\x16\f\x02OP\x07%\x02\x02PQ\x05\x1E\x10\x02Q\r\x03\x02\x02\x02RS\x07\x05" +
-		"\x02\x02ST\x07$\x02\x02TU\x05\x16\f\x02UV\x07%\x02\x02VW\x05\x1E\x10\x02" +
-		"WX\x07\x06\x02\x02XY\x05\x1E\x10\x02Y\x0F\x03\x02\x02\x02Z[\x05\b\x05" +
-		"\x02[\\\x07\x1F\x02\x02\\_\x03\x02\x02\x02]_\x05\x12\n\x02^Z\x03\x02\x02" +
-		"\x02^]\x03\x02\x02\x02_\x11\x03\x02\x02\x02`a\x05 \x11\x02ab\x05\x14\v" +
-		"\x02bc\x07$\x02\x02cd\x07%\x02\x02de\x07&\x02\x02ef\x05\x02\x02\x02fg" +
-		"\x07\'\x02\x02gy\x03\x02\x02\x02hi\x05 \x11\x02ij\x05\x14\v\x02jk\x07" +
-		"$\x02\x02kp\x05\b\x05\x02lm\x07\x1D\x02\x02mo\x05\b\x05\x02nl\x03\x02" +
-		"\x02\x02or\x03\x02\x02\x02pn\x03\x02\x02\x02pq\x03\x02\x02\x02qs\x03\x02" +
-		"\x02\x02rp\x03\x02\x02\x02st\x07%\x02\x02tu\x07&\x02\x02uv\x05\x02\x02" +
-		"\x02vw\x07\'\x02\x02wy\x03\x02\x02\x02x`\x03\x02\x02\x02xh\x03\x02\x02" +
-		"\x02y\x13\x03\x02\x02\x02z{\x07)\x02\x02{\x15\x03\x02\x02\x02|}\b\f\x01" +
-		"\x02}\x89\x07)\x02\x02~\x89\x07(\x02\x02\x7F\x89\x07\x15\x02\x02\x80\x89" +
-		"\x05\x18\r\x02\x81\x82\x05\x1A\x0E\x02\x82\x83\x05\x16\f\x05\x83\x89\x03" +
-		"\x02\x02\x02\x84\x85\x07$\x02\x02\x85\x86\x05\x16\f\x02\x86\x87\x07%\x02" +
-		"\x02\x87\x89\x03\x02\x02\x02\x88|\x03\x02\x02\x02\x88~\x03\x02\x02\x02" +
-		"\x88\x7F\x03\x02\x02\x02\x88\x80\x03\x02\x02\x02\x88\x81\x03\x02\x02\x02" +
-		"\x88\x84\x03\x02\x02\x02\x89\x90\x03\x02\x02\x02\x8A\x8B\f\x04\x02\x02" +
-		"\x8B\x8C\x05\x1C\x0F\x02\x8C\x8D\x05\x16\f\x05\x8D\x8F\x03\x02\x02\x02" +
-		"\x8E\x8A\x03\x02\x02\x02\x8F\x92\x03\x02\x02\x02\x90\x8E\x03\x02\x02\x02" +
-		"\x90\x91\x03\x02\x02\x02\x91\x17\x03\x02\x02\x02\x92\x90\x03\x02\x02\x02" +
-		"\x93\x94\x05\x14\v\x02\x94\x95\x07$\x02\x02\x95\x9A\x05\x16\f\x02\x96" +
-		"\x97\x07\x1D\x02\x02\x97\x99\x05\x16\f\x02\x98\x96\x03\x02\x02\x02\x99" +
-		"\x9C\x03\x02\x02\x02\x9A\x98\x03\x02\x02\x02\x9A\x9B\x03\x02\x02\x02\x9B" +
-		"\x9D\x03\x02\x02\x02\x9C\x9A\x03\x02\x02\x02\x9D\x9E\x07%\x02\x02\x9E" +
-		"\xA4\x03\x02\x02\x02\x9F\xA0\x05\x14\v\x02\xA0\xA1\x07$\x02\x02\xA1\xA2" +
-		"\x07%\x02\x02\xA2\xA4\x03\x02\x02\x02\xA3\x93\x03\x02\x02\x02\xA3\x9F" +
-		"\x03\x02\x02\x02\xA4\x19\x03\x02\x02\x02\xA5\xA6\t\x02\x02\x02\xA6\x1B" +
-		"\x03\x02\x02\x02\xA7\xA8\t\x03\x02\x02\xA8\x1D\x03\x02\x02\x02\xA9\xAA" +
-		"\x07&\x02\x02\xAA\xAB\x05\x02\x02\x02\xAB\xAC\x07\'\x02\x02\xAC\x1F\x03" +
-		"\x02\x02\x02\xAD\xAE\t\x04\x02\x02\xAE!\x03\x02\x02\x02\x0E&59AJ^px\x88" +
-		"\x90\x9A\xA3";
+		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x04\x12\t\x12\x04" +
+		"\x13\t\x13\x04\x14\t\x14\x03\x02\x03\x02\x03\x02\x03\x02\x05\x02-\n\x02" +
+		"\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03" +
+		"\x03\x03\x03\x03\x03\x03\x03\x03\x05\x03<\n\x03\x03\x04\x03\x04\x05\x04" +
+		"@\n\x04\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x05\x05" +
+		"I\n\x05\x03\x06\x03\x06\x03\x06\x03\x06\x03\x07\x03\x07\x03\x07\x03\x07" +
+		"\x03\x07\x03\x07\x03\x07\x05\x07V\n\x07\x03\b\x03\b\x03\b\x03\b\x03\b" +
+		"\x03\b\x03\t\x03\t\x03\t\x03\t\x03\t\x03\t\x03\t\x03\t\x03\n\x03\n\x03" +
+		"\n\x03\n\x03\n\x05\nk\n\n\x03\v\x03\v\x03\v\x03\v\x03\v\x03\v\x03\v\x03" +
+		"\v\x03\v\x03\v\x03\v\x03\v\x03\v\x03\v\x07\v{\n\v\f\v\x0E\v~\v\v\x03\v" +
+		"\x03\v\x03\v\x03\v\x03\v\x05\v\x85\n\v\x03\f\x03\f\x03\r\x03\r\x03\r\x03" +
+		"\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03\r\x03\r\x05\r\x95\n\r\x03\r" +
+		"\x03\r\x03\r\x03\r\x07\r\x9B\n\r\f\r\x0E\r\x9E\v\r\x03\x0E\x03\x0E\x03" +
+		"\x0E\x03\x0E\x03\x0E\x07\x0E\xA5\n\x0E\f\x0E\x0E\x0E\xA8\v\x0E\x03\x0E" +
+		"\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x05\x0E\xB0\n\x0E\x03\x0F\x03" +
+		"\x0F\x03\x10\x03\x10\x03\x11\x03\x11\x03\x11\x03\x11\x03\x12\x03\x12\x03" +
+		"\x13\x03\x13\x03\x13\x03\x13\x03\x14\x03\x14\x03\x14\x03\x14\x07\x14\xC4" +
+		"\n\x14\f\x14\x0E\x14\xC7\v\x14\x03\x14\x03\x14\x03\x14\x03\x14\x02\x02" +
+		"\x03\x18\x15\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02" +
+		"\x12\x02\x14\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02\"\x02$\x02" +
+		"&\x02\x02\x05\x05\x02\b\n\x19\x1B$$\x05\x02\v\x0F\x19\x1D\"#\x03\x02\x10" +
+		"\x15\x02\xD0\x02,\x03\x02\x02\x02\x04;\x03\x02\x02\x02\x06=\x03\x02\x02" +
+		"\x02\bH\x03\x02\x02\x02\nJ\x03\x02\x02\x02\fU\x03\x02\x02\x02\x0EW\x03" +
+		"\x02\x02\x02\x10]\x03\x02\x02\x02\x12j\x03\x02\x02\x02\x14\x84\x03\x02" +
+		"\x02\x02\x16\x86\x03\x02\x02\x02\x18\x94\x03\x02\x02\x02\x1A\xAF\x03\x02" +
+		"\x02\x02\x1C\xB1\x03\x02\x02\x02\x1E\xB3\x03\x02\x02\x02 \xB5\x03\x02" +
+		"\x02\x02\"\xB9\x03\x02\x02\x02$\xBB\x03\x02\x02\x02&\xBF\x03\x02\x02\x02" +
+		"(-\x05\x04\x03\x02)*\x05\x04\x03\x02*+\x05\x02\x02\x02+-\x03\x02\x02\x02" +
+		",(\x03\x02\x02\x02,)\x03\x02\x02\x02-\x03\x03\x02\x02\x02./\x05\f\x07" +
+		"\x02/0\x07 \x02\x020<\x03\x02\x02\x0212\x05\x18\r\x0223\x07 \x02\x023" +
+		"<\x03\x02\x02\x024<\x05\x10\t\x025<\x05\x12\n\x026<\x05\x0E\b\x027<\x05" +
+		" \x11\x0289\x05\x06\x04\x029:\x07 \x02\x02:<\x03\x02\x02\x02;.\x03\x02" +
+		"\x02\x02;1\x03\x02\x02\x02;4\x03\x02\x02\x02;5\x03\x02\x02\x02;6\x03\x02" +
+		"\x02\x02;7\x03\x02\x02\x02;8\x03\x02\x02\x02<\x05\x03\x02\x02\x02=?\x07" +
+		"\x03\x02\x02>@\x05\x18\r\x02?>\x03\x02\x02\x02?@\x03\x02\x02\x02@\x07" +
+		"\x03\x02\x02\x02AB\x05\"\x12\x02BC\x07*\x02\x02CI\x03\x02\x02\x02DE\x05" +
+		"\"\x12\x02EF\x05\f\x07\x02FI\x03\x02\x02\x02GI\x05\n\x06\x02HA\x03\x02" +
+		"\x02\x02HD\x03\x02\x02\x02HG\x03\x02\x02\x02I\t\x03\x02\x02\x02JK\x07" +
+		"\x04\x02\x02KL\x07*\x02\x02LM\x07*\x02\x02M\v\x03\x02\x02\x02NO\x07*\x02" +
+		"\x02OP\x07!\x02\x02PV\x05\x18\r\x02QR\x07\x1B\x02\x02RS\x07*\x02\x02S" +
+		"T\x07!\x02\x02TV\x05\x18\r\x02UN\x03\x02\x02\x02UQ\x03\x02\x02\x02V\r" +
+		"\x03\x02\x02\x02WX\x07\x05\x02\x02XY\x07%\x02\x02YZ\x05\x18\r\x02Z[\x07" +
+		"&\x02\x02[\\\x05 \x11\x02\\\x0F\x03\x02\x02\x02]^\x07\x06\x02\x02^_\x07" +
+		"%\x02\x02_`\x05\x18\r\x02`a\x07&\x02\x02ab\x05 \x11\x02bc\x07\x07\x02" +
+		"\x02cd\x05 \x11\x02d\x11\x03\x02\x02\x02ef\x05\b\x05\x02fg\x07 \x02\x02" +
+		"gk\x03\x02\x02\x02hk\x05\x14\v\x02ik\x05&\x14\x02je\x03\x02\x02\x02jh" +
+		"\x03\x02\x02\x02ji\x03\x02\x02\x02k\x13\x03\x02\x02\x02lm\x05\"\x12\x02" +
+		"mn\x05\x16\f\x02no\x07%\x02\x02op\x07&\x02\x02pq\x07\'\x02\x02qr\x05\x02" +
+		"\x02\x02rs\x07(\x02\x02s\x85\x03\x02\x02\x02tu\x05\"\x12\x02uv\x05\x16" +
+		"\f\x02vw\x07%\x02\x02w|\x05\b\x05\x02xy\x07\x1E\x02\x02y{\x05\b\x05\x02" +
+		"zx\x03\x02\x02\x02{~\x03\x02\x02\x02|z\x03\x02\x02\x02|}\x03\x02\x02\x02" +
+		"}\x7F\x03\x02\x02\x02~|\x03\x02\x02\x02\x7F\x80\x07&\x02\x02\x80\x81\x07" +
+		"\'\x02\x02\x81\x82\x05\x02\x02\x02\x82\x83\x07(\x02\x02\x83\x85\x03\x02" +
+		"\x02\x02\x84l\x03\x02\x02\x02\x84t\x03\x02\x02\x02\x85\x15\x03\x02\x02" +
+		"\x02\x86\x87\x07*\x02\x02\x87\x17\x03\x02\x02\x02\x88\x89\b\r\x01\x02" +
+		"\x89\x95\x07*\x02\x02\x8A\x95\x07)\x02\x02\x8B\x95\x07\x16\x02\x02\x8C" +
+		"\x95\x05\x1A\x0E\x02\x8D\x8E\x05\x1C\x0F\x02\x8E\x8F\x05\x18\r\x05\x8F" +
+		"\x95\x03\x02\x02\x02\x90\x91\x07%\x02\x02\x91\x92\x05\x18\r\x02\x92\x93" +
+		"\x07&\x02\x02\x93\x95\x03\x02\x02\x02\x94\x88\x03\x02\x02\x02\x94\x8A" +
+		"\x03\x02\x02\x02\x94\x8B\x03\x02\x02\x02\x94\x8C\x03\x02\x02\x02\x94\x8D" +
+		"\x03\x02\x02\x02\x94\x90\x03\x02\x02\x02\x95\x9C\x03\x02\x02\x02\x96\x97" +
+		"\f\x04\x02\x02\x97\x98\x05\x1E\x10\x02\x98\x99\x05\x18\r\x05\x99\x9B\x03" +
+		"\x02\x02\x02\x9A\x96\x03\x02\x02\x02\x9B\x9E\x03\x02\x02\x02\x9C\x9A\x03" +
+		"\x02\x02\x02\x9C\x9D\x03\x02\x02\x02\x9D\x19\x03\x02\x02\x02\x9E\x9C\x03" +
+		"\x02\x02\x02\x9F\xA0\x05\x16\f\x02\xA0\xA1\x07%\x02\x02\xA1\xA6\x05\x18" +
+		"\r\x02\xA2\xA3\x07\x1E\x02\x02\xA3\xA5\x05\x18\r\x02\xA4\xA2\x03\x02\x02" +
+		"\x02\xA5\xA8\x03\x02\x02\x02\xA6\xA4\x03\x02\x02\x02\xA6\xA7\x03\x02\x02" +
+		"\x02\xA7\xA9\x03\x02\x02\x02\xA8\xA6\x03\x02\x02\x02\xA9\xAA\x07&\x02" +
+		"\x02\xAA\xB0\x03\x02\x02\x02\xAB\xAC\x05\x16\f\x02\xAC\xAD\x07%\x02\x02" +
+		"\xAD\xAE\x07&\x02\x02\xAE\xB0\x03\x02\x02\x02\xAF\x9F\x03\x02\x02\x02" +
+		"\xAF\xAB\x03\x02\x02\x02\xB0\x1B\x03\x02\x02\x02\xB1\xB2\t\x02\x02\x02" +
+		"\xB2\x1D\x03\x02\x02\x02\xB3\xB4\t\x03\x02\x02\xB4\x1F\x03\x02\x02\x02" +
+		"\xB5\xB6\x07\'\x02\x02\xB6\xB7\x05\x02\x02\x02\xB7\xB8\x07(\x02\x02\xB8" +
+		"!\x03\x02\x02\x02\xB9\xBA\t\x04\x02\x02\xBA#\x03\x02\x02\x02\xBB\xBC\x05" +
+		"\"\x12\x02\xBC\xBD\x07*\x02\x02\xBD\xBE\x07 \x02\x02\xBE%\x03\x02\x02" +
+		"\x02\xBF\xC0\x07\x04\x02\x02\xC0\xC1\x07*\x02\x02\xC1\xC5\x07\'\x02\x02" +
+		"\xC2\xC4\x05$\x13\x02\xC3\xC2\x03\x02\x02\x02\xC4\xC7\x03\x02\x02\x02" +
+		"\xC5\xC3\x03\x02\x02\x02\xC5\xC6\x03\x02\x02\x02\xC6\xC8\x03\x02\x02\x02" +
+		"\xC7\xC5\x03\x02\x02\x02\xC8\xC9\x07(\x02\x02\xC9\xCA\x07 \x02\x02\xCA" +
+		"\'\x03\x02\x02\x02\x0F,;?HUj|\x84\x94\x9C\xA6\xAF\xC5";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!CJsParser.__ATN) {
@@ -1141,12 +1280,15 @@ export class ReturnContext extends ParserRuleContext {
 
 
 export class VarDefContext extends ParserRuleContext {
-	public type(): TypeContext {
-		return this.getRuleContext(0, TypeContext);
+	public type(): TypeContext | undefined {
+		return this.tryGetRuleContext(0, TypeContext);
 	}
 	public ID(): TerminalNode | undefined { return this.tryGetToken(CJsParser.ID, 0); }
 	public assg(): AssgContext | undefined {
 		return this.tryGetRuleContext(0, AssgContext);
+	}
+	public structInit(): StructInitContext | undefined {
+		return this.tryGetRuleContext(0, StructInitContext);
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
@@ -1169,6 +1311,44 @@ export class VarDefContext extends ParserRuleContext {
 	public accept<Result>(visitor: CJsVisitor<Result>): Result {
 		if (visitor.visitVarDef) {
 			return visitor.visitVarDef(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class StructInitContext extends ParserRuleContext {
+	public ID(): TerminalNode[];
+	public ID(i: number): TerminalNode;
+	public ID(i?: number): TerminalNode | TerminalNode[] {
+		if (i === undefined) {
+			return this.getTokens(CJsParser.ID);
+		} else {
+			return this.getToken(CJsParser.ID, i);
+		}
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return CJsParser.RULE_structInit; }
+	// @Override
+	public enterRule(listener: CJsListener): void {
+		if (listener.enterStructInit) {
+			listener.enterStructInit(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: CJsListener): void {
+		if (listener.exitStructInit) {
+			listener.exitStructInit(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: CJsVisitor<Result>): Result {
+		if (visitor.visitStructInit) {
+			return visitor.visitStructInit(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
@@ -1298,6 +1478,9 @@ export class DefContext extends ParserRuleContext {
 	public COLON(): TerminalNode | undefined { return this.tryGetToken(CJsParser.COLON, 0); }
 	public funDef(): FunDefContext | undefined {
 		return this.tryGetRuleContext(0, FunDefContext);
+	}
+	public structDef(): StructDefContext | undefined {
+		return this.tryGetRuleContext(0, StructDefContext);
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
@@ -1646,6 +1829,82 @@ export class TypeContext extends ParserRuleContext {
 	public accept<Result>(visitor: CJsVisitor<Result>): Result {
 		if (visitor.visitType) {
 			return visitor.visitType(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class StructMemberContext extends ParserRuleContext {
+	public type(): TypeContext {
+		return this.getRuleContext(0, TypeContext);
+	}
+	public ID(): TerminalNode { return this.getToken(CJsParser.ID, 0); }
+	public COLON(): TerminalNode { return this.getToken(CJsParser.COLON, 0); }
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return CJsParser.RULE_structMember; }
+	// @Override
+	public enterRule(listener: CJsListener): void {
+		if (listener.enterStructMember) {
+			listener.enterStructMember(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: CJsListener): void {
+		if (listener.exitStructMember) {
+			listener.exitStructMember(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: CJsVisitor<Result>): Result {
+		if (visitor.visitStructMember) {
+			return visitor.visitStructMember(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class StructDefContext extends ParserRuleContext {
+	public ID(): TerminalNode { return this.getToken(CJsParser.ID, 0); }
+	public LCURLY(): TerminalNode { return this.getToken(CJsParser.LCURLY, 0); }
+	public RCURLY(): TerminalNode { return this.getToken(CJsParser.RCURLY, 0); }
+	public COLON(): TerminalNode { return this.getToken(CJsParser.COLON, 0); }
+	public structMember(): StructMemberContext[];
+	public structMember(i: number): StructMemberContext;
+	public structMember(i?: number): StructMemberContext | StructMemberContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(StructMemberContext);
+		} else {
+			return this.getRuleContext(i, StructMemberContext);
+		}
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return CJsParser.RULE_structDef; }
+	// @Override
+	public enterRule(listener: CJsListener): void {
+		if (listener.enterStructDef) {
+			listener.enterStructDef(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: CJsListener): void {
+		if (listener.exitStructDef) {
+			listener.exitStructDef(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: CJsVisitor<Result>): Result {
+		if (visitor.visitStructDef) {
+			return visitor.visitStructDef(this);
 		} else {
 			return visitor.visitChildren(this);
 		}

@@ -2,7 +2,15 @@ import {Intepreter} from "./interpreter/Interpreter"
 import { parser } from "./parser/parser"
 
 // For testing
-const prog = `int main() {return 2+3;}`
+const struct_prog = `
+struct Circle {int x; int y;}; 
+int main() {
+    struct Circle c;
+    return 0;
+}
+
+`
+const prog = `int main() { printf('%d', 6+3); return 0;}`
 
 // parse program
 const parsed = parser(prog)
@@ -15,6 +23,15 @@ console.log(
 
 // intepret program
 const interpreter = new Intepreter()
-const result = interpreter.interpreter(parsed)
-console.log(result)
+interpreter.interpreter(parsed)
+// console.log(result)
 
+// test struct definition and init
+// TODO: IMPLEMENT struct initalisation
+// const str = parser(struct_prog)
+// console.log(
+//     JSON.stringify(
+//         str,
+//          null, 
+//          2)
+// )

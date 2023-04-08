@@ -1,4 +1,4 @@
-// Generated from CJs.g4 by ANTLR 4.9.0-SNAPSHOT
+// Generated from ./lang/CJs.g4 by ANTLR 4.9.0-SNAPSHOT
 
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
@@ -7,6 +7,7 @@ import { ProgramContext } from "./CJsParser";
 import { StatContext } from "./CJsParser";
 import { ReturnContext } from "./CJsParser";
 import { VarDefContext } from "./CJsParser";
+import { StructInitContext } from "./CJsParser";
 import { AssgContext } from "./CJsParser";
 import { WhileStatContext } from "./CJsParser";
 import { IfStatContext } from "./CJsParser";
@@ -19,6 +20,8 @@ import { UnaryOpContext } from "./CJsParser";
 import { BinaryOpContext } from "./CJsParser";
 import { BlockContext } from "./CJsParser";
 import { TypeContext } from "./CJsParser";
+import { StructMemberContext } from "./CJsParser";
+import { StructDefContext } from "./CJsParser";
 
 
 /**
@@ -69,6 +72,17 @@ export interface CJsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitVarDef?: (ctx: VarDefContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CJsParser.structInit`.
+	 * @param ctx the parse tree
+	 */
+	enterStructInit?: (ctx: StructInitContext) => void;
+	/**
+	 * Exit a parse tree produced by `CJsParser.structInit`.
+	 * @param ctx the parse tree
+	 */
+	exitStructInit?: (ctx: StructInitContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `CJsParser.assg`.
@@ -201,5 +215,27 @@ export interface CJsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitType?: (ctx: TypeContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CJsParser.structMember`.
+	 * @param ctx the parse tree
+	 */
+	enterStructMember?: (ctx: StructMemberContext) => void;
+	/**
+	 * Exit a parse tree produced by `CJsParser.structMember`.
+	 * @param ctx the parse tree
+	 */
+	exitStructMember?: (ctx: StructMemberContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CJsParser.structDef`.
+	 * @param ctx the parse tree
+	 */
+	enterStructDef?: (ctx: StructDefContext) => void;
+	/**
+	 * Exit a parse tree produced by `CJsParser.structDef`.
+	 * @param ctx the parse tree
+	 */
+	exitStructDef?: (ctx: StructDefContext) => void;
 }
 
