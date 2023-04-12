@@ -1,57 +1,62 @@
-export class Environment {
-    private stack: any[];
+interface Variable {
+    name: string;
+    value: any;
+  }
+  
+  export class Environment {
+    private stack: Variable[][];
   
     constructor() {
-      this.stack = [];
+      this.stack = [[]];
     }
   
-    push(scope: any) {
-      this.stack.push(scope);
+    pushScope(): void {
+      this.stack.push([]);
     }
   
-    pop() {
+    popScope(): void {
       this.stack.pop();
     }
   
-    lookup(name: string) { // look up function name
-      for (let i = this.stack.length - 1; i >= 0; i--) {
-        if (name in this.stack[i]) {
-          return this.stack[i][name];
-        }
-      }
-      throw new ReferenceError(`Variable '${name}' is not defined.`);
+    declareVariable(name: string, value?: any): void {
+      const top = this.stack[this.stack.length - 1];
+      top.push({ name, value });
     }
   
-    assign(name: string, value: any) {
+    getVariable(name: string): any {
       for (let i = this.stack.length - 1; i >= 0; i--) {
-        if (name in this.stack[i]) {
-          this.stack[i][name] = value;
+        const frame = this.stack[i];
+        const variable = frame.find((v) => v.name === name);
+        if (variable) {
+          return variable.value;
+        }
+      }
+      throw new Error(`Undefined variable: ${name}`);
+    }
+  
+    setVariable(name: string, value: any): void {
+      for (let i = this.stack.length - 1; i >= 0; i--) {
+        const frame = this.stack[i];
+        const variable = frame.find((v) => v.name === name);
+        if (variable) {
+          variable.value = value;
           return;
         }
       }
-      throw new ReferenceError(`Variable '${name}' is not defined.`);
-    }
-  
-    pushFrame() {
-      this.push({});
-    }
-  
-    popFrame() {
-      this.pop();
-    }
-  
-    assignParam(paramName: string, value: any) {
-      if (this.stack.length == 0) {
-        throw new Error("Attempted to assign parameter without an active function frame");
-      }
-      this.stack[this.stack.length - 1][paramName] = value;
-    }
-  
-    lookupParam(paramName: string) {
-      if (this.stack.length == 0) {
-        throw new Error("Attempted to look up parameter without an active function frame");
-      }
-      return this.stack[this.stack.length - 1][paramName];
+      throw new Error(`Undefined variable: ${name}`);
     }
   }
+  
+//   const env = new Environment();
+  
+//   env.pushScope();
+//   env.declareVariable('x', 10);
+//   env.pushScope();
+//   env.declareVariable('y', 20);
+//   console.log(env.getVariable('x')); // 10
+//   console.log(env.getVariable('y')); // 20
+//   env.setVariable('x', 30);
+//   console.log(env.getVariable('x')); // 30
+//   env.popScope();
+//   console.log(env.getVariable('x')); // 10
   

@@ -6,7 +6,7 @@ import { TerminalNode } from 'antlr4ts/tree/TerminalNode'
 import * as CJsParser from '../lang/CJsParser'
 import { CJsVisitor } from '../lang/CJsVisitor'
 
-import {TreeNode} from '../parser_tree_builder/TreeNode'
+import {TreeNode} from './TreeNode'
 
 
 
@@ -34,12 +34,12 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
 
   }
   visitStat(ctx: CJsParser.StatContext): TreeNode {
-    const stat = {tag: 'Statement', children: {}}
+    let children = {}
 
     //assingment
-    if (ctx.assg()) {stat.children = this.visitAssg(ctx.assg()!)}
+    if (ctx.assg()) {children = this.visitAssg(ctx.assg()!)}
     //expression
-    if (ctx.expr()){ stat.children = this.visitExpr(ctx.expr()!)}
+    if (ctx.expr()){ children = this.visitExpr(ctx.expr()!)}
 
     // if
 
@@ -48,17 +48,18 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
     // block
 
     // definitions
-    if (ctx.def()){ stat.children = this.visitDef(ctx.def()!)}
+    if (ctx.def()){ children = this.visitDef(ctx.def()!)}
 
     // return
-    if (ctx.return()) { stat.children = this.visitReturn(ctx.return()!)}
+    if (ctx.return()) { children = this.visitReturn(ctx.return()!)}
 
     // //COLON
     // else {
     //   stat.children = this.visitTerminal(ctx.COLON()!)
     // }
 
-    return stat;
+    return{tag: 'Statement', children}
+    
   }
 
   visitReturn (ctx: CJsParser.ReturnContext): TreeNode {

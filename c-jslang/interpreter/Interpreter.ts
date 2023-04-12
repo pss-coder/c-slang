@@ -1,35 +1,11 @@
-import { TreeNode } from "../parser_tree_builder/TreeNode";
+import { TreeNode } from "../ast/TreeNode";
 
 type Environment = { [name: string]: any };
 
-interface StackFrame {
-  environment: Environment;
-}
 
 
 export class Intepreter {
 
-  private stack: StackFrame[];
-  environment: Environment = {};
-
-  constructor() {
-    this.stack = []
-  }
-
-  private getCurrentFrame(): StackFrame {
-    return this.stack[this.stack.length - 1];
-  }
-
-  private lookup(name: string): number | undefined {
-    for (let i = this.stack.length - 1; i >= 0; i--) {
-      const frame = this.stack[i];
-      const value = frame.environment[name];
-      if (value !== undefined) {
-        return value;
-      }
-    }
-    return undefined;
-  }
 
   // Define a print function that takes a list of values and prints them
   // in the console
@@ -37,16 +13,7 @@ export class Intepreter {
     console.log(...values);
     return undefined;
   }
-  
 
-  define(name: string, value: any): void {
-    // Define name in current frame if present, else in global environment
-    if (this.stack.length > 0) {
-      this.stack[this.stack.length - 1].environment[name] = value;
-    } else {
-      this.environment[name] = value;
-    }
-  }
 
   interpreter(node: TreeNode): any {
     switch(node.tag) {
@@ -79,14 +46,11 @@ export class Intepreter {
             // evaulate args in func first
               // then call function in environment
               const fnName = this.interpreter(node.funcName!)
-              const func = this.lookup(fnName!)
               // evaulate args
               const ags = node!.args
               //TODO: store params
               if (ags) {
-                const frame: StackFrame = {
-                  environment: {},
-                };
+                
                 // ags.forEach(item => {
                 //   const val = this.interpreter(item)
                 //   const name = parameterNames.shift()!;

@@ -1,7 +1,7 @@
 import { CharStreams, CommonTokenStream } from "antlr4ts";
 import { CJsLexer } from "../lang/CJsLexer";
 import { CJsParser } from "../lang/CJsParser";
-import { TreeBuilder } from "../parser_tree_builder/TreeBuilder";
+import { TreeBuilder } from "../ast/TreeBuilder";
 
 export function parser(source: string) {
 
