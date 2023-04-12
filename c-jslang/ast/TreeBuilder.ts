@@ -42,10 +42,13 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
     if (ctx.expr()){ children = this.visitExpr(ctx.expr()!)}
 
     // if
+    if (ctx.ifStat()) { children = this.visitIfStat(ctx.ifStat()!)}
 
     // while
+    if (ctx.whileStat()) { children = this.visitWhileStat(ctx.whileStat()!)}
 
     // block
+    if(ctx.block()) { children = this.visitBlock(ctx.block()!)}
 
     // definitions
     if (ctx.def()){ children = this.visitDef(ctx.def()!)}
@@ -98,8 +101,27 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
   }
 
 
-  visitWhileStat?: ((ctx: CJsParser.WhileStatContext) => TreeNode) | undefined
-  visitIfStat?: ((ctx: CJsParser.IfStatContext) => TreeNode) | undefined
+  visitWhileStat (ctx: CJsParser.WhileStatContext): TreeNode {
+    const predicate = this.visitExpr(ctx.expr())
+    const body = this.visitBlock(ctx.block())
+    return {
+      tag: 'WhileStat',
+      predicate,
+      body
+    }
+  }
+
+  visitIfStat (ctx: CJsParser.IfStatContext) : TreeNode {
+    const condition = this.visit(ctx.expr())
+    const consequent = this.visit(ctx.block()[0])
+    const alternative = this.visit(ctx.block()[1])
+    return {
+      tag: 'IfStat',
+      condition,
+      consequent,
+      alternative
+    }
+  }
 
   visitDef(ctx: CJsParser.DefContext): TreeNode {
     const def = {tag: 'Def', children: {}}
@@ -164,8 +186,8 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
     else if (ctx.unaryOp()) {
       // Unary expression
       // todo: call visitunary
-      const expr = this.visit(ctx.expr(0));
-      const operator = this.visit(ctx.unaryOp()!);
+      const expr = this.visitExpr(ctx.expr(0));
+      const operator = this.visitUnaryOp(ctx.unaryOp()!);
       return {
         tag: 'UnaryExpression',
         text: ctx.text,
@@ -223,6 +245,7 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
     }
   }
 
+
   visitStructDef (ctx: CJsParser.StructDefContext) : TreeNode {
     const members = ctx.structMember().map(item => this.visitStructMember(item))
 
@@ -249,7 +272,10 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
   }
 
   visitType(ctx: CJsParser.TypeContext): TreeNode {
-    return {tag: 'Type', text:ctx.text}
+    let isPointerPresent = false;
+    if(ctx.text.includes('*'))
+      isPointerPresent = true        
+    return {tag: 'Type', text:ctx.text, isPointerPresent}
   }
 
   visit(node: ParseTree): TreeNode {

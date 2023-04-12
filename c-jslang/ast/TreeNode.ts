@@ -35,5 +35,14 @@ export interface TreeNode {
     // is pointer * present in assignment
     isPointerPresent?: boolean | false
 
+    // for if-else
+    condition? : TreeNode
+    consequent? : TreeNode
+    alternative? : TreeNode
     block?: TreeNode
+
+    // for while
+    predicate?: TreeNode,
+    body?: TreeNode
+
   }

@@ -1,13 +1,39 @@
-import { type } from "os";
 import { TreeNode } from "../ast/TreeNode";
-import { Environment } from "./Environment";
+
+function printf(format: string,args: any[]): void {
+    let index = 0;
+    let output = "";
+    for (let i = 0; i < format.length; i++) {
+      if (format[i] === "%") {
+        const specifier = format[i + 1];
+        switch (specifier) {
+          case "d":
+            output += args[index++];
+            break;
+          case "s":
+            output += args[index++];
+            break;
+          case "c":
+            output += String.fromCharCode(args[index++]);
+            break;
+          default:
+            throw new Error(`Invalid format specifier: ${specifier}`);
+        }
+        i++; // Skip over the specifier
+      } else {
+        output += format[i];
+      }
+    }
+  
+    console.log(output);
+}
+  
 
 type StackFrame = {
     env: Record<string, Function>,
     retAddr: number,
-  }
+}
   
-
 interface Function {
     name: string,
     returnType: string,
@@ -21,6 +47,8 @@ interface Function {
 
 const runtimeStack: StackFrame[] = [];
 const resultStack: number[] = [];
+const globalenv: Record<string,any> = {}
+globalenv["printf"] = printf;
 
 function pushStackFrame(env: Record<string, any>, retAddr: number) {
     runtimeStack.push({ env, retAddr })
@@ -60,8 +88,9 @@ function evaluateFunctionCall(node: TreeNode, args: any[]) {
 
     const fnName:string = evaluate(node.funcName!)
     if (fnName == 'printf') {
-        const format = resultStack[resultStack.length - 1]
-        console.log(format)
+        const string = evaluate(node.args![0])
+        globalenv[fnName](string,resultStack )
+        //const format = resultStack[resultStack.length - 1]
         return;
     }
 
@@ -99,6 +128,22 @@ export function evaluate(node: TreeNode): any {
             return evaluate(node.children!)
         case 'Def':
             return evaluate(node.children!)
+        case 'IfStat':
+            const condition: boolean = evaluate(node.condition!)
+            const consequent = node.consequent!
+            const alternative = node.alternative!
+            if (condition)
+                return evaluate(consequent)
+            else
+                return evaluate(alternative)
+            break;
+        case 'WhileStat': //FIXME: Not Yet Implemented
+            const predicate: boolean = evaluate(node.predicate!)
+            const body = node.body
+            //TODO: update variable increment!!
+                // call again body again
+        case 'Block':
+            return evaluate(node.block!)
         case 'FunDef':
             // if it is the main function <= evaluate it, since its function definition is execution
             const fnName = evaluate(node.children!.funcName!)
@@ -107,9 +152,6 @@ export function evaluate(node: TreeNode): any {
 
             // Save the function definition to a environment
             evaluateFunctionDefinition(node)
-
-            // evaulate next sections of node
-            // return evaluate(node.children!.nextProg!)
 
             // Return undefined since we're not actually evaluating the function here
             return undefined;
@@ -120,8 +162,9 @@ export function evaluate(node: TreeNode): any {
                 // if present => map names to value and evaluate
             const fnCallName = evaluate(node.funcName!)
             const fnCallParams = node.args!.map(param => evaluate(param)) || []
+            // console.log(fnCallParams)
             
-            evaluateFunctionCall(node,fnCallParams )
+            evaluateFunctionCall(node,fnCallParams)
 
             break;
         case 'Return':
@@ -135,8 +178,11 @@ export function evaluate(node: TreeNode): any {
         case 'BinaryOp':
             return node.text!
         case 'Literal':
-            return parseInt(node.text!)
-        case 'Identifier':
+            const val = Number(node.text!)
+            if (isNaN(val))
+                return node.text!
+            return val
+        case 'Identifier': // GET FROM ENVIRONMENT, FIXME: IMPROVE IT!
             return peekStackFrame().env[node.text!]
         case 'returnType':
             return node.text!
@@ -146,7 +192,6 @@ export function evaluate(node: TreeNode): any {
             const varName = node.text!
             const varType = evaluate(node.children!.type!)
             return {varName, varType, value: undefined}
-            break;
         case 'Type':
             return node.text
         default:
@@ -183,3 +228,4 @@ function binaryOp(operator: string, left: number, right: number) {
           throw new Error(`Unknown operator:`);
       }
 }
+
