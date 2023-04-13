@@ -120,6 +120,17 @@ export class Evaluator {
                 // console.log(env.values[node.text!])
                 return env.values[node.text!]
                 break;
+            case 'ArrDef':
+                const type = this.evaluate(node.type!, env)
+                const arr_name = node.text!
+                const arrValues = node.arrValues!.map(val => this.evaluate(val, env));
+                // perform ....
+                break;
+            case 'ArrAccess':
+                const arrName = node.text!
+                const index = node.arrIndex!
+                // perform ...
+                break;
             case 'returnType':
                 return node.text!
             case 'FuncName':

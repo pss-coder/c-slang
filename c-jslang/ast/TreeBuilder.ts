@@ -295,6 +295,7 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
     }
     return {
       tag: 'ArrDef',
+      text: ctx.ID().text!,
       type: this.visitType(ctx.type()),
       arrValues
     }

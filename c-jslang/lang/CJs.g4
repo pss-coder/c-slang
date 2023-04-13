@@ -12,6 +12,17 @@ stat: assg ';'
     | return ';'
     ;
 
+expr: ID
+    | INT
+    | CHAR
+    | STRING
+    | funCall
+    | unaryOp expr
+    | expr binaryOp expr
+    | '(' expr ')'
+    | arrAccess
+    ;
+
 return : 'return' (expr)?;
 
 
@@ -41,16 +52,7 @@ funDef : type funcName '(' ')' '{' program '}'
 
 funcName: ID;
 
-expr: ID
-    | INT
-    | CHAR
-    | STRING
-    | funCall
-    | unaryOp expr
-    | expr binaryOp expr
-    | '(' expr ')'
-    | arrAccess
-    ;
+
 
 
 funCall : funcName '(' expr (',' expr)* ')'
