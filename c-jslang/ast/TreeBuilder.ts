@@ -177,6 +177,12 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
         text: ctx.CHAR()?.text
       };
     }
+    else if (ctx.STRING()) {
+      return {
+        tag: 'Literal',
+        text: ctx.STRING()?.text
+      };
+    }
     else if (ctx.funCall()) {
       return this.visitFunCall(ctx.funCall()!)
     }

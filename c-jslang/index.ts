@@ -13,7 +13,7 @@ const prog_1 = `int sum(int x, int y) {return x + y;} int main() { printf('%d %d
 // const prog = `int main() { int a = 3; return a;}`
 const prog_3 = `while (3 > 2) { return 4; }`
 const prog_4 = `int x = 0; while(x < 5){printf('%d', x); x = x + 1;}`
-const prog_5 = `int x = 0; x = x + 1;`
+const prog_5 = `int add_one(int x) { return x + 1;} int main() {printf("%d", add_one(1));}`
 
 
 // parse program

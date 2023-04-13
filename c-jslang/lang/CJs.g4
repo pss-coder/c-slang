@@ -43,6 +43,7 @@ funcName: ID;
 expr: ID
     | INT
     | CHAR
+    | STRING
     | funCall
     | unaryOp expr
     | expr binaryOp expr

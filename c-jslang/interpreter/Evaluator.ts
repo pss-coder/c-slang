@@ -45,17 +45,22 @@ export function evaluate(node: TreeNode, env: Environment): any {
         case 'Block':
             return evaluate(node.block!, env)
         case 'FunDef':
-            // if it is the main function <= evaluate it, since its function definition is execution
+            
             const fnName = evaluate(node.children!.funcName!, env)
-            if (fnName == 'main')
-                return evaluate(node.children!.nextProg!, env)
-
+                
             // Save the function definition to a environment
             const returnType = evaluate(node.children!.returnType!, env)
             const params = node.children?.args!.map(param => evaluate(param, env)) || []
             const bdy = node.children!.nextProg!
-            const frame: StackFrame = {name: fnName, returnType, params, body: bdy, variables: undefined}
+            const frame: StackFrame = {name: fnName, returnType, params, body: bdy, variables: {}}
             env.define(fnName, frame)
+
+             // if it is the main function <= evaluate it, since its function definition is execution
+             if (fnName == 'main') { 
+                RTS.push(frame)
+                return evaluate(node.children!.nextProg!, env)
+                // RTS.pop(frame)
+            }
             
             // Return undefined since we're not actually evaluating the function here
             return undefined;
@@ -68,7 +73,6 @@ export function evaluate(node: TreeNode, env: Environment): any {
 
             // map the value in the fn call to fn def params
             const fnCallParams = node.args!.map(param => evaluate(param, env)) || []
-
             if (fn_name == 'printf') { // check for builtIns
                 const string = evaluate(node.args![0], env)
                 env.lookup(fn_name)(string,resultStack)
@@ -85,7 +89,6 @@ export function evaluate(node: TreeNode, env: Environment): any {
             for (let i = 0; i < fn.params.length; i++) {
                 localEnv.define(fn.params[i].varName, fnCallParams[i])
             }
-            console.log("--")
 
             // add to RTS
             RTS.push(fn)
@@ -97,16 +100,13 @@ export function evaluate(node: TreeNode, env: Environment): any {
             break;
         case 'Return':
             return evaluate(node.children!, env)
-        case 'Assignment':
-            return {name: node.text!, 
-                isPointerPresent: node.isPointerPresent, 
-                value: evaluate(node.children!, env) }
-            break;
         case 'BinaryExpression':
-            console.log(env)
             const operator = evaluate(node.operator!, env);
+
             const left = evaluate(node.left!, env)
             const right = evaluate(node.right!, env)
+
+
             const result = binaryOp(operator, left,right)
             return result;
         case 'BinaryOp':
@@ -117,8 +117,6 @@ export function evaluate(node: TreeNode, env: Environment): any {
                 return node.text!
             return val
         case 'Identifier': // GET FROM ENVIRONMENT, FIXME: IMPROVE IT!
-            // return peekStackFrame().env[node.text!]
-            // console.log(env.values[node.text!])
             return env.values[node.text!]
             break;
         case 'returnType':
@@ -126,20 +124,29 @@ export function evaluate(node: TreeNode, env: Environment): any {
         case 'FuncName':
             return node.text!
         case 'VarDef':
-
-            if (node.children?.assignment) {
+            // add to environment mapping
+            if (node.children?.assignment) { // if there is an assignment
                 
                 const varType = evaluate(node.children!.type!, env)
                 const assignment = evaluate(node.children.assignment, env)
                 const varName = assignment.name
                 const isPointerPresent = assignment.isPointerPresent
                 const value = assignment.value
+                env.define(varName, {varName, varType, isPointerPresent, value} )
+
                 return {varName, varType, isPointerPresent, value}
             }
             
             const varName = node.text!
             const varType = evaluate(node.children!.type!, env)
+
             return {varName, varType, value: undefined}
+
+        case 'Assignment':
+                return {name: node.text!, 
+                    isPointerPresent: node.isPointerPresent, 
+                    value: evaluate(node.children!, env) }
+                break;
         case 'Type':
             return node.text
         default:
