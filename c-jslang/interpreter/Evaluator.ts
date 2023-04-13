@@ -1,185 +1,112 @@
 import { TreeNode } from "../ast/TreeNode";
-
-const builtIn = {
-
-
-    printf: (format: string,args: any[]) => {
-        let index = 0;
-    let output = "";
-    for (let i = 0; i < format.length; i++) {
-      if (format[i] === "%") {
-        const specifier = format[i + 1];
-        switch (specifier) {
-          case "d":
-            output += args[index++];
-            break;
-          case "s":
-            output += args[index++];
-            break;
-          case "c":
-            output += String.fromCharCode(args[index++]);
-            break;
-          default:
-            throw new Error(`Invalid format specifier: ${specifier}`);
-        }
-        i++; // Skip over the specifier
-      } else {
-        output += format[i];
-      }
-    }
-  
-    console.log(output);
-    }
-}
-  
-
-type StackFrame = {
-    env: Record<string, Function>,
-    retAddr: number,
-}
+import { Environment } from "./Environment";
+import { StackFrame } from "./StackFrame";
+import { RuntimeStack } from "./RuntimeStack";
 
 
-interface Function {
-    name: string,
-    returnType: string,
-    params: any[],
-    body: TreeNode | undefined
-}
+//globalenv["printf"] = builtIn.printf;
 
+const RTS: RuntimeStack = new RuntimeStack()
 
-// stack to keep track of the current state of the program. This stack will be used to store information 
-// such as the current function being executed, 
-//the current block of code being executed, and the current value of any variables that are currently in scope.
-
-const runtimeStack: StackFrame[] = [];
+// stores final value from program
 const resultStack: number[] = [];
-const globalenv: Record<string,any> = {}
-globalenv["printf"] = builtIn.printf;
-
-function pushStackFrame(env: Record<string, any>, retAddr: number) {
-    runtimeStack.push({ env, retAddr })
-  }
-  
-  function popStackFrame() {
-    return runtimeStack.pop()
-  }
-  
-  function peekStackFrame() {
-    return runtimeStack[runtimeStack.length - 1]
-  }
-
-function evaluateFunctionDefinition(node: TreeNode) {
-    const fnName = evaluate(node.children!.funcName!)
-    const returnType = evaluate(node.children!.returnType!)
-    const params = node.children?.args!.map(param => evaluate(param)) || []
-    const body = node.children!.nextProg!
-
-    const frame: Function = {name: fnName, returnType, params, body}
-
-    const env: Record<string, any> = {}
-    // add function parameters to environment
-    for (let i = 0; i < params.length; i++) {
-        env[params[i].varName] = undefined
-    }
-   
-    env[fnName] = frame
-    pushStackFrame(env, -1)
-
-    // console.log(env)
-}
-
-function evaluateFunctionCall(node: TreeNode, args: any[]) { 
-    // perform lookup of funDefinition
-        // check builtIn functions e.g: printf
-
-    const fnName:string = evaluate(node.funcName!)
-    if (fnName == 'printf') {
-        const string = evaluate(node.args![0])
-        globalenv[fnName](string,resultStack )
-        //const format = resultStack[resultStack.length - 1]
-        return;
-    }
-
-    const stack = popStackFrame()
-    const env = stack!.env
-    const frame = env[fnName]
-
-    //console.log(stack.env[fnName])
-
-    // map the args to the frame
-    // add arguments to environment
-    for (let i = 0; i < args.length; i++) {
-        env[frame.params[i].varName] = args[i]
-    }
-
-    pushStackFrame(env, 0)
-    
-    const result = evaluate(frame.body!)
-    resultStack.push(result)
-}
 
 
-export function evaluate(node: TreeNode): any {
+export function evaluate(node: TreeNode, env: Environment): any {
     switch(node.tag) {
         case 'Program':
           if (node.children?.stat) {
-                 const stat = evaluate(node.children?.stat!)
+                 const stat = evaluate(node.children?.stat!, env)
                 //  console.log(stat)
             }
             if (node.children?.nextProg)
-                return evaluate(node.children?.nextProg)
+                return evaluate(node.children?.nextProg, env)
 
-            return evaluate(node.children!)
+            return evaluate(node.children!, env)
         case 'Statement':
-            return evaluate(node.children!)
+            return evaluate(node.children!, env)
         case 'Def':
-            return evaluate(node.children!)
+            return evaluate(node.children!, env)
         case 'IfStat':
-            const condition: boolean = evaluate(node.condition!)
+            const condition: boolean = evaluate(node.condition!, env)
             const consequent = node.consequent!
             const alternative = node.alternative!
             if (condition)
-                return evaluate(consequent)
+                return evaluate(consequent, env)
             else
-                return evaluate(alternative)
+                return evaluate(alternative, env)
             break;
         case 'WhileStat': //FIXME: Not Yet Implemented
-            const predicate: boolean = evaluate(node.predicate!)
+            const predicate: boolean = evaluate(node.predicate!, env)
             const body = node.body
             //TODO: update variable increment!!
                 // call again body again
+            break;
         case 'Block':
-            return evaluate(node.block!)
+            return evaluate(node.block!, env)
         case 'FunDef':
             // if it is the main function <= evaluate it, since its function definition is execution
-            const fnName = evaluate(node.children!.funcName!)
+            const fnName = evaluate(node.children!.funcName!, env)
             if (fnName == 'main')
-                return evaluate(node.children!.nextProg!)
+                return evaluate(node.children!.nextProg!, env)
 
             // Save the function definition to a environment
-            evaluateFunctionDefinition(node)
-
+            const returnType = evaluate(node.children!.returnType!, env)
+            const params = node.children?.args!.map(param => evaluate(param, env)) || []
+            const bdy = node.children!.nextProg!
+            const frame: StackFrame = {name: fnName, returnType, params, body: bdy, variables: undefined}
+            env.define(fnName, frame)
+            
             // Return undefined since we're not actually evaluating the function here
             return undefined;
 
         case 'FunCall':
-
+            
             // do lookup of functions => if not present throw an error
                 // if present => map names to value and evaluate
-            const fnCallName = evaluate(node.funcName!)
+            const fn_name:string = evaluate(node.funcName!, env)
 
-            const fnCallParams = node.args!.map(param => evaluate(param)) || []
-            // console.log(fnCallParams)
+            // map the value in the fn call to fn def params
+            const fnCallParams = node.args!.map(param => evaluate(param, env)) || []
+
+            if (fn_name == 'printf') { // check for builtIns
+                const string = evaluate(node.args![0], env)
+                env.lookup(fn_name)(string,resultStack)
+                //return;
+                break;
+            }
+
+            const fn = env.lookup(fn_name)
+            if (!fn)
+                throw new Error(`Function ${node.funcName!.text!} is not defined`);
+
             
-            evaluateFunctionCall(node,fnCallParams)
+            const localEnv: Environment = env.extend()
+            for (let i = 0; i < fn.params.length; i++) {
+                localEnv.define(fn.params[i].varName, fnCallParams[i])
+            }
+            console.log("--")
 
+            // add to RTS
+            RTS.push(fn)
+            const r = evaluate(fn.body!, localEnv)
+            resultStack.push(r)
+            RTS.pop()
+            return r;
+            
             break;
         case 'Return':
-            return evaluate(node.children!)
+            return evaluate(node.children!, env)
+        case 'Assignment':
+            return {name: node.text!, 
+                isPointerPresent: node.isPointerPresent, 
+                value: evaluate(node.children!, env) }
+            break;
         case 'BinaryExpression':
-            const operator = evaluate(node.operator!);
-            const left = evaluate(node.left!)
-            const right = evaluate(node.right!)
+            console.log(env)
+            const operator = evaluate(node.operator!, env);
+            const left = evaluate(node.left!, env)
+            const right = evaluate(node.right!, env)
             const result = binaryOp(operator, left,right)
             return result;
         case 'BinaryOp':
@@ -190,14 +117,28 @@ export function evaluate(node: TreeNode): any {
                 return node.text!
             return val
         case 'Identifier': // GET FROM ENVIRONMENT, FIXME: IMPROVE IT!
-            return peekStackFrame().env[node.text!]
+            // return peekStackFrame().env[node.text!]
+            // console.log(env.values[node.text!])
+            return env.values[node.text!]
+            break;
         case 'returnType':
             return node.text!
         case 'FuncName':
             return node.text!
         case 'VarDef':
+
+            if (node.children?.assignment) {
+                
+                const varType = evaluate(node.children!.type!, env)
+                const assignment = evaluate(node.children.assignment, env)
+                const varName = assignment.name
+                const isPointerPresent = assignment.isPointerPresent
+                const value = assignment.value
+                return {varName, varType, isPointerPresent, value}
+            }
+            
             const varName = node.text!
-            const varType = evaluate(node.children!.type!)
+            const varType = evaluate(node.children!.type!, env)
             return {varName, varType, value: undefined}
         case 'Type':
             return node.text
