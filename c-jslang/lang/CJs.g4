@@ -18,6 +18,7 @@ return : 'return' (expr)?;
 varDef: type ID 
     | type assg 
     | structInit
+    | arrDef
     ;
 
 structInit: 'struct' ID ID ;
@@ -48,6 +49,7 @@ expr: ID
     | unaryOp expr
     | expr binaryOp expr
     | '(' expr ')'
+    | arrAccess
     ;
 
 
@@ -96,7 +98,8 @@ type  : 'void'
 structMember: type ID ';' ;
 structDef: 'struct' ID '{' (structMember)* '}' ';' ;
 
-
+arrDef: type ID'[]' '=' '{' expr (',' expr)* '}' ; 
+arrAccess: ID ('[' INT ']')* ;
 
 //==================================== Lexical components =========================================
 
@@ -108,6 +111,9 @@ SUB    : '-' ;
 MUL    : '*' ;
 DIV    : '/' ;
 MOD    : '%' ;
+
+ARRAY  : '[]' ;
+
 COMMA  : ',';
 PRINT  : 'print';
 COLON  : ';';

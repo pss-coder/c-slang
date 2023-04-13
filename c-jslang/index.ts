@@ -13,10 +13,11 @@ const prog_1 = `int sum(int x, int y) {return x + y;} int main() { printf('%d %d
 const prog_3 = `while (3 > 2) { return 4; }`
 const prog_4 = `int x = 0; while(x < 5){printf('%d', x); x = x + 1;}`
 const prog_5 = `int return_x(int x ) {return x;} int main() {int x = 0; x = x + 1; printf("%d", return_x(x));  return 0;}`
+const prog_6 = `int myNumbers[] = {25, 50, 75, 100}; myNumbers[0];`
 
 
 // parse program
-const parsed = parser(prog_5)
+const parsed = parser(prog_6)
 console.log(
     JSON.stringify(
         parsed,
@@ -72,6 +73,6 @@ const builtIn = {
 const globalEnv: Environment = new Environment();
 globalEnv.define("printf", builtIn.printf)
 
-const ev: Evaluator = new Evaluator()
-console.log(ev.evaluate(parsed, globalEnv))
-console.log(ev.output)
+// const ev: Evaluator = new Evaluator()
+//console.log(ev.evaluate(parsed, globalEnv))
+//console.log(ev.output)

@@ -74,10 +74,12 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
     if (ctx.structInit()) {
       return {tag: 'VarDef', children: this.visitStructInit(ctx.structInit()!)}
     }
+    if (ctx.arrDef()) {
+      return {tag: 'VarDef', children: this.visitArrDef(ctx.arrDef()!)}
+    }
 
     const type = this.visitType(ctx.type()!);
     const assignment = ctx.assg() ? this.visitAssg(ctx.assg()!) : undefined;
-
     return {
       tag: 'VarDef',
       text: ctx.ID()?.text,
@@ -194,10 +196,13 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
         right: expr
       };
     }
+    else if (ctx.arrAccess()) {
+      return this.visitArrAccess(ctx.arrAccess()!)
+    }
     else if (ctx.expr().length === 1) {
       // Parenthesized expression
       return this.visit(ctx.expr(0));
-    }
+    } 
     else {
       // binary operation
       // Binary expression
@@ -279,6 +284,28 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
     if(ctx.text.includes('*'))
       isPointerPresent = true        
     return {tag: 'Type', text:ctx.text, isPointerPresent}
+  }
+
+  visitArrDef (ctx: CJsParser.ArrDefContext) : TreeNode {
+
+    let arrValues: TreeNode[] = []
+    for (let i = 0; i < ctx.expr().length; i++) {
+      var res = this.visit(ctx.expr()[i])
+      arrValues.push(res)
+    }
+    return {
+      tag: 'ArrDef',
+      type: this.visitType(ctx.type()),
+      arrValues
+    }
+  }
+
+  visitArrAccess (ctx: CJsParser.ArrAccessContext): TreeNode {
+    return {
+      tag: 'ArrAccess',
+      text: ctx.ID().text,
+      arrIndex: Number(ctx.INT(0)!.text)
+    }
   }
 
   visit(node: ParseTree): TreeNode {

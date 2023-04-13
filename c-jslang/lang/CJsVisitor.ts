@@ -22,6 +22,8 @@ import { BlockContext } from "./CJsParser";
 import { TypeContext } from "./CJsParser";
 import { StructMemberContext } from "./CJsParser";
 import { StructDefContext } from "./CJsParser";
+import { ArrDefContext } from "./CJsParser";
+import { ArrAccessContext } from "./CJsParser";
 
 
 /**
@@ -164,5 +166,19 @@ export interface CJsVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitStructDef?: (ctx: StructDefContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `CJsParser.arrDef`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitArrDef?: (ctx: ArrDefContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `CJsParser.arrAccess`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitArrAccess?: (ctx: ArrAccessContext) => Result;
 }
 

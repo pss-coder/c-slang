@@ -46,4 +46,8 @@ export interface TreeNode {
     predicate?: TreeNode,
     body?: TreeNode
 
+    //for array
+    arrValues?: TreeNode[]
+    arrIndex?: number
+
   }
