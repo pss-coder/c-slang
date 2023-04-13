@@ -1,7 +1,10 @@
 import { TreeNode } from "../ast/TreeNode";
 
-function printf(format: string,args: any[]): void {
-    let index = 0;
+const builtIn = {
+
+
+    printf: (format: string,args: any[]) => {
+        let index = 0;
     let output = "";
     for (let i = 0; i < format.length; i++) {
       if (format[i] === "%") {
@@ -26,6 +29,7 @@ function printf(format: string,args: any[]): void {
     }
   
     console.log(output);
+    }
 }
   
 
@@ -33,13 +37,15 @@ type StackFrame = {
     env: Record<string, Function>,
     retAddr: number,
 }
-  
+
+
 interface Function {
     name: string,
     returnType: string,
     params: any[],
     body: TreeNode | undefined
 }
+
 
 // stack to keep track of the current state of the program. This stack will be used to store information 
 // such as the current function being executed, 
@@ -48,7 +54,7 @@ interface Function {
 const runtimeStack: StackFrame[] = [];
 const resultStack: number[] = [];
 const globalenv: Record<string,any> = {}
-globalenv["printf"] = printf;
+globalenv["printf"] = builtIn.printf;
 
 function pushStackFrame(env: Record<string, any>, retAddr: number) {
     runtimeStack.push({ env, retAddr })
@@ -161,6 +167,7 @@ export function evaluate(node: TreeNode): any {
             // do lookup of functions => if not present throw an error
                 // if present => map names to value and evaluate
             const fnCallName = evaluate(node.funcName!)
+
             const fnCallParams = node.args!.map(param => evaluate(param)) || []
             // console.log(fnCallParams)
             
