@@ -33,7 +33,8 @@ export interface TreeNode {
     assignment?: TreeNode
 
     // is pointer * present in assignment
-    isPointerPresent?: boolean | false
+    isPointerPresent?: boolean | false,
+    isAddressRefPresent?: boolean | false
 
     // for if-else
     condition? : TreeNode

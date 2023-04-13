@@ -223,9 +223,13 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
   }
 
   visitUnaryOp (ctx: CJsParser.UnaryOpContext) : TreeNode {
+    let isAddressRefPresent = false;
+    if (ctx.text == '&')
+      isAddressRefPresent = true;
     return {
       tag: 'UnaryOp',
       text: ctx.text,
+      isAddressRefPresent
     }
   }
 
