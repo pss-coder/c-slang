@@ -17,7 +17,6 @@ export function evaluate(node: TreeNode, env: Environment): any {
         case 'Program':
           if (node.children?.stat) {
                  const stat = evaluate(node.children?.stat!, env)
-                //  console.log(stat)
             }
             if (node.children?.nextProg)
                 return evaluate(node.children?.nextProg, env)
