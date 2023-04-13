@@ -1,6 +1,5 @@
 import { Environment } from "./interpreter/Environment"
-import { evaluate } from "./interpreter/Evaluator"
-import {Intepreter} from "./interpreter/Interpreter"
+import { Evaluator } from "./interpreter/Evaluator"
 
 import { parser } from "./parser/parser"
 
@@ -13,11 +12,11 @@ const prog_1 = `int sum(int x, int y) {return x + y;} int main() { printf('%d %d
 // const prog = `int main() { int a = 3; return a;}`
 const prog_3 = `while (3 > 2) { return 4; }`
 const prog_4 = `int x = 0; while(x < 5){printf('%d', x); x = x + 1;}`
-const prog_5 = `int add_one(int x) { return x + 1;} int main() {printf('%d', add_one(1));}`
+const prog_5 = `int main() {int x = 0; printf("%d", x);}`
 
 
 // parse program
-const parsed = parser(prog_5)
+const parsed = parser(prog_1)
 console.log(
     JSON.stringify(
         parsed,
@@ -66,12 +65,13 @@ const builtIn = {
       }
     }
   
-    console.log(output);
+    return output
     }
 }
 
 const globalEnv: Environment = new Environment();
-
 globalEnv.define("printf", builtIn.printf)
 
-console.log(evaluate(parsed, globalEnv))
+const ev: Evaluator = new Evaluator()
+ev.evaluate(parsed, globalEnv)
+console.log(ev.output)

@@ -1,6 +1,7 @@
 import { StackFrame } from "./StackFrame";
 
 export class RuntimeStack {
+  // Set limit???
     private frames: StackFrame[] = [];
   
     push(frame: StackFrame): void {

@@ -1,5 +1,6 @@
 export class Environment {
     values: { [key: string]: any } = {};
+    variableMapping: { [key: string]: any } = {};
     private parentEnv?: Environment;
   
     constructor(parentEnv?: Environment) {
