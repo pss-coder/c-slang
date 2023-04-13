@@ -104,11 +104,8 @@ export class Evaluator {
                 return this.evaluate(node.children!, env)
             case 'BinaryExpression':
                 const operator = this.evaluate(node.operator!, env);
-    
                 const left = this.evaluate(node.left!, env)
                 const right = this.evaluate(node.right!, env)
-    
-    
                 const result = this.binaryOp(operator, left,right)
                 return result;
             case 'BinaryOp':
@@ -128,7 +125,7 @@ export class Evaluator {
             case 'FuncName':
                 return node.text!
             case 'VarDef':
-    
+                
                 if (node.children?.assignment) { // if there is an assignment
                     
                     const varType = this.evaluate(node.children!.type!, env)
@@ -136,6 +133,7 @@ export class Evaluator {
                     const varName = assignment.name
                     const isPointerPresent = assignment.isPointerPresent
                     const value = assignment.value
+                    env.define(varName, value)
                     return {varName, varType, isPointerPresent, value}
                 }
                 
@@ -145,7 +143,7 @@ export class Evaluator {
                 return {varName, varType, value: undefined}
     
             case 'Assignment':
-                    RTS.peek().variables![node.text!] = this.evaluate(node.children!, env)
+                env.values[node.text!] = this.evaluate(node.children!, env)
                     return {name: node.text!, 
                         isPointerPresent: node.isPointerPresent, 
                         value: this.evaluate(node.children!, env) }
